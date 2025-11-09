@@ -1,22 +1,23 @@
-import { motion } from 'framer-motion';
-import { Moon, Sun, Menu, X } from 'lucide-react';
-import { useState } from 'react';
-import { useTheme } from '../hooks/useTheme';
+import { motion } from "framer-motion";
+import { Menu, Moon, Sun, X } from "lucide-react";
+import { useState } from "react";
+import { useTheme } from "../hooks/useTheme";
 
 export const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
-    { label: 'About', href: '#about' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Experience', href: '#experience' },
-    { label: 'Contact', href: '#contact' },
+    { label: "Home", href: "#home" },
+    { label: "About", href: "#about" },
+    { label: "Projects", href: "#projects" },
+    { label: "Experience", href: "#experience" },
+    { label: "Contact", href: "#contact" },
   ];
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
-    element?.scrollIntoView({ behavior: 'smooth' });
+    element?.scrollIntoView({ behavior: "smooth" });
     setIsMenuOpen(false);
   };
 
@@ -30,12 +31,12 @@ export const Navbar = () => {
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <motion.button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="text-2xl font-bold text-gray-900 dark:text-white"
           >
-            Portfolio
+            MC.JIMIRL
           </motion.button>
 
           <div className="hidden md:flex items-center gap-8">
@@ -57,7 +58,7 @@ export const Navbar = () => {
               className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
               aria-label="Toggle theme"
             >
-              {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+              {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
             </motion.button>
           </div>
 
@@ -69,7 +70,7 @@ export const Navbar = () => {
               className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
               aria-label="Toggle theme"
             >
-              {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+              {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
             </motion.button>
 
             <motion.button
@@ -86,7 +87,7 @@ export const Navbar = () => {
         {isMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
+            animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden mt-4 pb-4 space-y-4"
           >

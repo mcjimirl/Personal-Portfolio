@@ -4,7 +4,8 @@ import profileImage from "../assets/images/imagenimerl.png";
 import { portfolioConfig } from "../config/portfolio";
 import { Button } from "./Button";
 import Threads from "./Threads";
-export const Hero = () => {
+
+export const Home = () => {
   const { personal } = portfolioConfig;
 
   const scrollToContact = () => {
@@ -24,7 +25,7 @@ export const Hero = () => {
       </div>
 
       {/* Optional subtle overlay for better text contrast */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-50/80 to-gray-100/40 dark:from-gray-900/80 dark:to-gray-800/40 -z-5" />
+      <div className="absolute inset-0 bg-gradient-to-br from-black-50/80 to-black-100/40 dark:from-gray-900/80 dark:to-gray-800/40 -z-5" />
 
       <div className="max-w-7xl  mx-auto w-full relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-12">

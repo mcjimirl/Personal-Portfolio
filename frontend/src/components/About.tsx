@@ -16,7 +16,7 @@ export const About = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+          <p className="text-lg text-gray-700 text-justify dark:text-gray-300 leading-relaxed mb-6 ">
             {personal.bio}
           </p>
           <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">

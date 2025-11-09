@@ -1,17 +1,17 @@
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { About } from './components/About';
-import { Projects } from './components/Projects';
-import { Experience } from './components/Experience';
-import { Contact } from './components/Contact';
-import { Footer } from './components/Footer';
+import { About } from "./components/About";
+import { Contact } from "./components/Contact";
+import { Experience } from "./components/Experience";
+import { Footer } from "./components/Footer";
+import { Home } from "./components/Home";
+import { Navbar } from "./components/Navbar";
+import { Projects } from "./components/Projects";
 
 function App() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       <Navbar />
       <main className="pt-16">
-        <Hero />
+        <Home />
         <About />
         <Projects />
         <Experience />

@@ -2,7 +2,7 @@ export const portfolioConfig = {
   personal: {
     name: "Mark Jaemerl Diestro",
     title: "Web Developer & Technical Support",
-    bio: "Passionate software engineer with expertise in building scalable web applications and elegant user interfaces. I love turning complex problems into simple, beautiful solutions.",
+    bio: "Driven software engineer with a strong focus on building scalable, high-performance web applications and thoughtful, user-centric interfaces. I specialize in transforming complex requirements into clean, maintainable solutions that enhance usability and deliver measurable results. I’m fueled by curiosity and a passion for solving real-world problems through technology. Collaboration is where I thrive — whether it’s brainstorming innovative features, refining architecture with teammates, or mentoring others to grow alongside me. I actively pursue continuous learning, staying current with evolving tools, frameworks, and industry best practices to ensure my work remains modern, efficient, and impactful.",
     email: "markjaemerldiestro@gmail.com",
     resumeUrl: "/Resume-Diestro.pdf",
   },
