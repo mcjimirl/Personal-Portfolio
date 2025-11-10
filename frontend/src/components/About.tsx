@@ -9,7 +9,7 @@ export const About = () => {
     <Section id="about" className="bg-white dark:bg-gray-900">
       <SectionTitle subtitle="Get to know me better">About Me</SectionTitle>
 
-      <div className="grid md:grid-cols-2 gap-12 items-start">
+      <div className="grid md:grid-cols-2 gap-12 items- ">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}

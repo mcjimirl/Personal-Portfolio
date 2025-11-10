@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import { useState } from "react";
+import MJD from "../assets/images/MJD.png";
 import { useTheme } from "../hooks/useTheme";
 
 export const Navbar = () => {
@@ -36,7 +37,7 @@ export const Navbar = () => {
             whileTap={{ scale: 0.95 }}
             className="text-2xl font-bold text-gray-900 dark:text-white"
           >
-            MC.JIMIRL
+            <img src={MJD} alt="logo basta" className="w-20 h-15" />
           </motion.button>
 
           <div className="hidden md:flex items-center gap-8">
