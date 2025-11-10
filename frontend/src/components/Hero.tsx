@@ -3,9 +3,10 @@ import { Download, Mail } from "lucide-react";
 import profileImage from "../assets/images/imagenimerl.png";
 import { portfolioConfig } from "../config/portfolio";
 import { Button } from "./Button";
+import { Section } from "./Section";
 import Threads from "./Threads";
 
-export const Home = () => {
+export const Hero = () => {
   const { personal } = portfolioConfig;
 
   const scrollToContact = () => {
@@ -13,7 +14,10 @@ export const Home = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-24 overflow-hidden">
+    <Section
+      id="home"
+      className="relative bg-white dark:bg-gray-900 min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-24 overflow-hidden"
+    >
       {/* Background Effects */}
       <div className="absolute inset-0 z-10 pointer-events-none opacity-70">
         <Threads
@@ -110,6 +114,6 @@ export const Home = () => {
           </motion.div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 };

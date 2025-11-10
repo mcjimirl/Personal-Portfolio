@@ -8,41 +8,39 @@ export const portfolioConfig = {
   },
 
   skills: [
-    "TypeScript",
-    "React",
-    "Node.js",
-    "PostgreSQL",
-    "TailwindCSS",
-    "Framer Motion",
-    "Git",
-    "Docker",
-    "AWS",
-    "REST APIs",
-    "Express",
-    "Trouble Shooting",
+    { name: "TypeScript", logo: "/logos/typescript.svg" },
+    { name: "React", logo: "/logos/react.svg" },
+    { name: "Node.js", logo: "/logos/nodedotjs.svg" },
+    { name: "PostgreSQL", logo: "/logos/postgresql.svg" },
+    { name: "TailwindCSS", logo: "/logos/tailwindcss.svg" },
+    { name: "Framer Motion", logo: "/logos/framer-motion.svg" },
+    { name: "Git", logo: "/logos/git.svg" },
+    { name: "Docker", logo: "/logos/docker.svg" },
+    { name: "Axios", logo: "/logos/axios.svg" },
+    { name: "Express", logo: "/logos/express.svg" },
+    { name: "Trouble Shooting", logo: "/logos/troubleshooting.svg" },
   ],
 
   projects: [
     {
       id: 1,
-      title: "E-Commerce Platform",
-      description:
-        "A full-stack e-commerce solution with real-time inventory management and secure payment processing.",
+      title: "Personal Portfolio",
+      description: "My personal portfolio for formalities purposes",
       image:
         "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=600",
-      techStack: ["React", "Node.js", "PostgreSQL", "Stripe"],
-      githubUrl: "https://github.com/yourusername/project1",
+      techStack: ["TypeScript", "React", "Express", "MongoDB", "TailwindCSS"],
+      githubUrl: "https://github.com/mcjimirl/Personal-Portfolio",
       liveUrl: "https://project1.example.com",
     },
     {
       id: 2,
-      title: "Task Management App",
+      title: "To-Do App",
       description:
-        "A collaborative project management tool with real-time updates and team collaboration features.",
+        "It's a modern To-Do App that's like a progress report management system that lets the user track their task for efficient progress.",
       image:
         "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=600",
-      techStack: ["TypeScript", "React", "Supabase", "TailwindCSS"],
-      githubUrl: "https://github.com/yourusername/project2",
+      techStack: ["TypeScript", "React", "Express", "MongoDB", "TailwindCSS"],
+      githubUrl: "https://github.com/mcjimirl/Todo-App",
       liveUrl: "https://project2.example.com",
     },
     {

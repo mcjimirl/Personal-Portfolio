@@ -16,7 +16,7 @@ export const About = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-lg text-gray-700 text-justify dark:text-gray-300 leading-relaxed mb-6 ">
+          <p className="text-lg text-gray-700 text-justify dark:text-gray-300 leading-relaxed mb-6">
             {personal.bio}
           </p>
           <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
@@ -32,21 +32,26 @@ export const About = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+          <h3 className="flex justify-center items-center text-2xl font-bold text-gray-900 dark:text-white mb-6">
             Skills & Technologies
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {skills.map((skill, index) => (
               <motion.div
-                key={skill}
+                key={skill.name}
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className="px-4 py-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-center font-medium text-gray-800 dark:text-gray-200 shadow-sm hover:shadow-md transition-shadow"
+                className="flex flex-col items-center justify-center px-4 py-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-center font-medium text-gray-800 dark:text-gray-200 shadow-sm hover:shadow-md transition-shadow"
               >
-                {skill}
+                <img
+                  src={skill.logo}
+                  alt={skill.name}
+                  className="w-8 h-8 mb-2 object-contain"
+                />
+                <span>{skill.name}</span>
               </motion.div>
             ))}
           </div>
