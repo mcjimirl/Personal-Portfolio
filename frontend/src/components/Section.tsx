@@ -32,7 +32,7 @@ interface SectionTitleProps {
  */
 export const SectionTitle = ({ children, subtitle }: SectionTitleProps) => {
   return (
-    <div className="text-center mb-14 md:mb-20">
+    <div className="text-center mb-10 md:mb-15">
       <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight">
         {children}
       </h2>

@@ -97,7 +97,6 @@ export const Hero = () => {
               whileHover={{
                 scale: 1.05,
                 rotate: 1,
-                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
               }}
               transition={{ duration: 0.4 }}
               className="relative group cursor-pointer" // Add group for hover effects on children
@@ -109,7 +108,7 @@ export const Hero = () => {
       lg:w-80 lg:h-80 
       rounded-full overflow-hidden 
       border-[6px] border-white dark:border-gray-800 
-      shadow-xl 
+      shadow-xl  
       transform transition-transform duration-300 ease-out
     "
               >

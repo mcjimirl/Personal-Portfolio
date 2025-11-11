@@ -8,7 +8,9 @@ export const About = () => {
   return (
     <Section id="about" className="bg-white dark:bg-gray-900">
       <SectionTitle subtitle="Get to know me better">About Me</SectionTitle>
-
+      <h3 className="flex justify-center items-center text-2xl font-bold text-gray-900 dark:text-white mb-6">
+        Skills & Technologies
+      </h3>
       <div className="grid md:grid-cols-2 gap-12 items- ">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -16,10 +18,11 @@ export const About = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-lg text-gray-700 text-justify dark:text-gray-300 leading-relaxed mb-6">
+          <p className="text-lg text-gray-700 text-justify dark:text-gray-300 leading-relaxed mb-6 indent-16">
             {personal.bio}
           </p>
-          <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+
+          <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed indent-16">
             I thrive on collaboration and continuous learning, always staying
             up-to-date with the latest technologies and best practices in
             software development.
@@ -32,9 +35,6 @@ export const About = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
-          <h3 className="flex justify-center items-center text-2xl font-bold text-gray-900 dark:text-white mb-6">
-            Skills & Technologies
-          </h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {skills.map((skill, index) => (
               <motion.div
