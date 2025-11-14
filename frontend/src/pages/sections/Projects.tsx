@@ -1,8 +1,8 @@
 import { motion, useAnimation, useMotionValue } from "framer-motion";
 import { memo, useEffect, useRef, useState } from "react";
-import { portfolioConfig } from "../config/portfolio";
+import { portfolioConfig } from "../../config/portfolio";
+import { Section, SectionTitle } from "../components/Section";
 import { ProjectCard } from "./ProjectCard";
-import { Section, SectionTitle } from "./Section";
 
 export const Projects = memo(() => {
   const { projects } = portfolioConfig;

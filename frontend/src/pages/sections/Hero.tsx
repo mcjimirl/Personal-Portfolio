@@ -1,10 +1,10 @@
+import profileImage from "@/assets/images/imagenimerl.png";
 import { motion } from "framer-motion";
 import { Download, Mail } from "lucide-react";
-import profileImage from "../assets/images/imagenimerl.png";
-import { portfolioConfig } from "../config/portfolio";
-import { Button } from "./Button";
-import { Section } from "./Section";
-import Threads from "./Threads";
+import { portfolioConfig } from "../../config/portfolio";
+import { Button } from "../components/Button";
+import { Section } from "../components/Section";
+import Threads from "../components/Threads";
 
 export const Hero = () => {
   const { personal } = portfolioConfig;

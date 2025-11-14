@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
-import { Button } from "./Button";
+import { Button } from "../components/Button";
 
 interface ProjectCardProps {
   title: string;

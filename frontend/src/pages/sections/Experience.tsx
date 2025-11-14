@@ -8,8 +8,8 @@ import {
   MapPin,
 } from "lucide-react";
 import { useState } from "react";
-import { portfolioConfig } from "../config/portfolio";
-import { Section, SectionTitle } from "./Section";
+import { portfolioConfig } from "../../config/portfolio";
+import { Section, SectionTitle } from "../components/Section";
 
 const DragIndicator = () => (
   <div className="flex justify-center mt-10">

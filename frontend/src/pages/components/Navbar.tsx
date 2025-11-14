@@ -1,8 +1,8 @@
+import MJD from "@/assets/images/MJD.png";
 import { motion } from "framer-motion";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import { useState } from "react";
-import MJD from "../assets/images/MJD.png";
-import { useTheme } from "../hooks/useTheme";
+import { useTheme } from "../../hooks/useTheme";
 
 export const Navbar = () => {
   const { theme, toggleTheme } = useTheme();

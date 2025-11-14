@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { Facebook, Github, Globe, Linkedin, Mail, Send } from "lucide-react";
-import { portfolioConfig } from "../config/portfolio";
-import { Button } from "./Button";
-import { Section, SectionTitle } from "./Section";
+import { portfolioConfig } from "../../config/portfolio";
+import { Button } from "../components/Button";
+import { Section, SectionTitle } from "../components/Section";
 
 export const Contact = () => {
   const { personal, social } = portfolioConfig;

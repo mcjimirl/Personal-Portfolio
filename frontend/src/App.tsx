@@ -1,10 +1,10 @@
-import { About } from "./components/About";
-import { Contact } from "./components/Contact";
-import { Experience } from "./components/Experience";
-import { Footer } from "./components/Footer";
-import { Hero } from "./components/Hero";
-import { Navbar } from "./components/Navbar";
-import { Projects } from "./components/Projects";
+import { Footer } from "./pages/components/Footer";
+import { Navbar } from "./pages/components/Navbar";
+import { About } from "./pages/sections/About";
+import { Contact } from "./pages/sections/Contact";
+import { Experience } from "./pages/sections/Experience";
+import { Hero } from "./pages/sections/Hero";
+import { Projects } from "./pages/sections/Projects";
 
 function App() {
   return (
