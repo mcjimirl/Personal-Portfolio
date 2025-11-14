@@ -1,11 +1,16 @@
+import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 import { Facebook, Github, Globe, Linkedin, Mail, Send } from "lucide-react";
+import { useRef, useState } from "react";
 import { portfolioConfig } from "../../config/portfolio";
 import { Button } from "../components/Button";
 import { Section, SectionTitle } from "../components/Section";
 
 export const Contact = () => {
-  const { personal, social } = portfolioConfig;
+  const formRef = useRef<HTMLFormElement>(null);
+  const [loading, setLoading] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("");
+  const { social } = portfolioConfig;
 
   const socialLinks = [
     { icon: Github, url: social.github, label: "GitHub" },
@@ -13,6 +18,30 @@ export const Contact = () => {
     { icon: Facebook, url: social.facebook, label: "Facebook" },
     { icon: Globe, url: social.website, label: "Website" },
   ];
+
+  const sendEmail = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formRef.current) return;
+
+    setLoading(true);
+
+    try {
+      await emailjs.sendForm(
+        "YOUR_SERVICE_ID",
+        "YOUR_TEMPLATE_ID",
+        formRef.current,
+        "YOUR_PUBLIC_KEY"
+      );
+
+      setSuccessMsg("Your message has been sent successfully!");
+      formRef.current.reset();
+    } catch (err) {
+      setSuccessMsg("Something went wrong. Please try again.");
+      console.error(err);
+    }
+
+    setLoading(false);
+  };
 
   return (
     <Section id="contact" className="bg-gray-50 dark:bg-gray-800">
@@ -36,36 +65,59 @@ export const Contact = () => {
             >
               <Mail className="text-blue-600 dark:text-blue-400" size={32} />
             </motion.div>
+
             <p className="text-lg text-gray-600 dark:text-gray-300">
-              Have a project in mind or just want to chat? Feel free to reach
-              out!
+              Have a project in mind? Message me directly using the form below.
             </p>
           </div>
 
-          <div className="text-center">
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              className="inline-block mb-8"
-            >
-              <a
-                href={`mailto:${personal.email}`}
-                className="text-2xl md:text-3xl font-bold text-blue-600 dark:text-blue-400 hover:underline"
-              >
-                {personal.email}
-              </a>
-            </motion.div>
+          {/* --- Email Form --- */}
+          <form
+            ref={formRef}
+            onSubmit={sendEmail}
+            className="space-y-6 max-w-xl mx-auto"
+          >
+            <input
+              type="text"
+              name="user_name"
+              placeholder="Your Name.."
+              required
+              className="w-full px-4 py-3 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+            />
+
+            <input
+              type="email"
+              name="user_email"
+              placeholder="Your Email.."
+              required
+              className="w-full px-4 py-3 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+            />
+
+            <textarea
+              name="message"
+              rows={5}
+              placeholder="Your Message.."
+              required
+              className="w-full px-4 py-3 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+            ></textarea>
 
             <div className="flex justify-center">
               <Button
-                href={`mailto:${personal.email}`}
                 variant="primary"
-                className="text-lg px-8 py-4"
+                className="text-lg px-8 py-4 flex items-center gap-2"
+                type="submit"
               >
-                <Send size={20} />
-                Send Email
+                {loading ? "Sending..." : <Send size={20} />}
+                {!loading && "Send Message"}
               </Button>
             </div>
-          </div>
+
+            {successMsg && (
+              <p className="text-center text-green-500 dark:text-green-400 mt-4">
+                {successMsg}
+              </p>
+            )}
+          </form>
 
           {/* --- Social Links Section --- */}
           <motion.div
@@ -91,7 +143,7 @@ export const Contact = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
                   whileHover={{ scale: 1.2, y: -5 }}
-                  className="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-blue-900 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  className="w-12 h-12 bg-gray-300 dark:bg-gray-100 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-blue-900 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   aria-label={link.label}
                 >
                   <link.icon size={24} />

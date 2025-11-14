@@ -46,9 +46,8 @@ export const portfolioConfig = {
     },
     {
       id: 3,
-      title: "AI Content Generator",
-      description:
-        "An intelligent content creation tool powered by machine learning algorithms.",
+      title: "AI ChatBot",
+      description: "An intelligent chat-bot tool.",
       image:
         "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=600",
       techStack: ["Python", "React", "OpenAI", "FastAPI"],

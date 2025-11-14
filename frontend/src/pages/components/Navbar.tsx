@@ -7,6 +7,7 @@ import { useTheme } from "../../hooks/useTheme";
 export const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showBubble, setShowBubble] = useState(false);
 
   const navLinks = [
     { label: "Home", href: "#home" },
@@ -52,15 +53,32 @@ export const Navbar = () => {
               </motion.button>
             ))}
 
-            <motion.button
-              onClick={toggleTheme}
-              whileHover={{ scale: 1.1, rotate: 180 }}
-              whileTap={{ scale: 0.9 }}
-              className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
-              aria-label="Toggle theme"
-            >
-              {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
-            </motion.button>
+            <motion.div className="relative">
+              <motion.button
+                onClick={() => {
+                  setShowBubble(true);
+                  setTimeout(() => setShowBubble(false), 1500); // hide after 1.5s
+                }}
+                whileHover={{ scale: 1.1, rotate: 180 }}
+                whileTap={{ scale: 0.9 }}
+                className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+                aria-label="Toggle theme"
+              >
+                {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+              </motion.button>
+
+              {showBubble && (
+                <motion.div
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: -5 }}
+                  exit={{ opacity: 0 }}
+                  className="absolute -left-16 -translate-x-1/2 mt-4 bg-blue-600 text-white text-xs px-3.5 py-1 rounded-lg shadow-lg whitespace-nowrap"
+                >
+                  Just lower your brightness.
+                  <div className="absolute left-1/2 -translate-x-1/2 bottom-5 w-2 h-2 bg-blue-600 rotate-45"></div>
+                </motion.div>
+              )}
+            </motion.div>
           </div>
 
           <div className="md:hidden flex items-center gap-4">
