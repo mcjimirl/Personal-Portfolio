@@ -44,7 +44,7 @@ export const About = () => {
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className="flex flex-col items-center justify-center px-4 py-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-center font-medium text-gray-800 dark:text-gray-200 shadow-sm hover:shadow-md transition-shadow"
+                className="flex flex-col items-center justify-center px-4 py-3 bg-gray-100 dark:bg-gray-200 rounded-lg text-center font-medium text-gray-800 dark:text-gray-800 shadow-sm hover:shadow-md transition-shadow"
               >
                 <img
                   src={skill.logo}
