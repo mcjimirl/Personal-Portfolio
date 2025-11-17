@@ -1,4 +1,5 @@
 import MJD from "@/assets/images/MJD.png";
+import MJDWhite from "@/assets/images/MJDW.png";
 import { motion } from "framer-motion";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import { useState } from "react";
@@ -13,6 +14,7 @@ export const Navbar = () => {
     { label: "About", href: "#about" },
     { label: "Projects", href: "#projects" },
     { label: "Experience", href: "#experience" },
+    { label: "Testimonies", href: "#testimonies" },
     { label: "Contact", href: "#contact" },
   ];
 
@@ -37,7 +39,11 @@ export const Navbar = () => {
             whileTap={{ scale: 0.95 }}
             className="text-2xl font-bold text-gray-900 dark:text-white"
           >
-            <img src={MJD} alt="logo basta" className="w-20 h-15" />
+            <img
+              src={theme === "light" ? MJD : MJDWhite}
+              alt="logo basta"
+              className="w-20 h-15"
+            />
           </motion.button>
 
           <div className="hidden md:flex items-center gap-8">

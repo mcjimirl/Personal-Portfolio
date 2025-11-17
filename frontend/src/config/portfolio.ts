@@ -112,4 +112,52 @@ export const portfolioConfig = {
     facebook: "https://facebook.com/markjaemerldiestro",
     website: "https://yourwebsite.com",
   },
+
+  testimonials: [
+    {
+      id: 1,
+      quote:
+        "Mark is an exceptionally dedicated and sharp full-stack developer. He consistently delivers high-quality, scalable code and is a true problem-solver. I highly recommend him for any complex engineering role.",
+      reviewer: "Jane Doe",
+      role: "Senior Software Engineer",
+      company: "Wayne Enterprise Solution Corp.",
+      imageUrl: "https://randomuser.me/api/portraits/women/1.jpg", // Example image URL
+    },
+    {
+      id: 2,
+      quote:
+        "Working with Mark on the Capstone project was a pleasure. His knowledge of deep learning and Flutter was instrumental in our success, and his commitment to quality documentation is top-notch.",
+      reviewer: "John Smith",
+      role: "Project Manager",
+      company: "Capstone Project",
+      imageUrl: "https://randomuser.me/api/portraits/men/2.jpg", // Example image URL
+    },
+    {
+      id: 3,
+      quote:
+        "As a Frontend Developer, Mark quickly adapted to new design systems and delivered pixel-perfect UIs from Figma designs. His participation in agile sprints made him a key, reliable team member.",
+      reviewer: "Alice Johnson",
+      role: "UI/UX Designer",
+      company: "Philippine Innovative Hub Academy Corp.",
+      imageUrl: "https://randomuser.me/api/portraits/women/3.jpg", // Example image URL
+    },
+    {
+      id: 4,
+      quote:
+        "A highly collaborative and patient mentor. Mark's ability to simplify complex technical challenges and communicate them clearly significantly accelerated our team's adoption of TypeScript.",
+      reviewer: "Michael Brown",
+      role: "Team Lead",
+      company: "Tech Innovators Inc.",
+      imageUrl: "https://randomuser.me/api/portraits/men/4.jpg", // Example image URL
+    },
+    {
+      id: 5,
+      quote:
+        "Mark's technical support skills are outstanding. He quickly diagnoses issues and provides clear, effective solutions, making him an invaluable asset to any team.",
+      reviewer: "Sarah Wilson",
+      role: "Operations Manager",
+      company: "Global Solutions",
+      imageUrl: "https://randomuser.me/api/portraits/women/5.jpg", // Example image URL
+    },
+  ],
 };
