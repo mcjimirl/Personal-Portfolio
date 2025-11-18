@@ -16,7 +16,7 @@ export const Hero = () => {
   return (
     <Section
       id="home"
-      className="relatives min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-24 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-12 lg:px-24 overflow-hidden py-12 sm:py-16 md:py-20"
     >
       {/* Background Effects */}
       <div className="absolute inset-0 z-10 pointer-events-none opacity-70">
@@ -28,23 +28,20 @@ export const Hero = () => {
         />
       </div>
 
-      {/* Optional subtle overlay for better text contrast */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black-50/80 to-black-100/40 dark:from-gray-900/80 dark:to-gray-800/40 -z-5" />
-
-      <div className="max-w-7xl  mx-auto w-full relative z-10">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+      <div className="max-w-7xl mx-auto w-full relative z-10">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 sm:gap-12">
           {/* Left Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="flex-1 text-center md:text-left"
+            className="flex-1 text-center md:text-left w-full md:w-auto"
           >
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-4"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4"
             >
               Hi, I'm <br />
               <span className="text-blue-600 dark:text-blue-400">
@@ -56,7 +53,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8"
+              className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 dark:text-gray-300 mb-6 sm:mb-8"
             >
               {personal.title}
             </motion.p>
@@ -65,15 +62,23 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center md:justify-start"
             >
-              <Button href={personal.resumeUrl} download>
-                <Download size={20} />
+              <Button
+                href={personal.resumeUrl}
+                download
+                className="text-sm sm:text-base"
+              >
+                <Download size={18} className="sm:w-5 sm:h-5" />
                 Download Resume
               </Button>
 
-              <Button variant="outline" onClick={scrollToContact}>
-                <Mail size={20} />
+              <Button
+                variant="outline"
+                onClick={scrollToContact}
+                className="text-sm sm:text-base"
+              >
+                <Mail size={18} className="sm:w-5 sm:h-5" />
                 Get in Touch
               </Button>
             </motion.div>
@@ -81,7 +86,6 @@ export const Hero = () => {
 
           {/* Profile Image - Enhanced Version */}
           <motion.div
-            // Initial animation: More subtle fade in and slight move up
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -90,42 +94,43 @@ export const Hero = () => {
               type: "spring",
               stiffness: 100,
             }}
-            className="flex-shrink-0 relative mx-auto" // Added mx-auto for centering if the parent allows
+            className="flex-shrink-0 relative mx-auto md:mx-0"
           >
             <motion.div
-              // Hover: Subtle 3D lift with shadow change
               whileHover={{
                 scale: 1.05,
                 rotate: 1,
               }}
               transition={{ duration: 0.4 }}
-              className="relative group cursor-pointer" // Add group for hover effects on children
+              className="relative group cursor-pointer"
             >
               <div
                 className="
-      w-56 h-56 
-      md:w-72 md:h-72 
-      lg:w-80 lg:h-80 
-      rounded-full overflow-hidden 
-      border-[6px] border-white dark:border-gray-800 
-      shadow-xl  
-      transform transition-transform duration-300 ease-out
-    "
+                  w-48 h-48 
+                  sm:w-56 sm:h-56 
+                  md:w-64 md:h-64 
+                  lg:w-72 lg:h-72 
+                  xl:w-80 xl:h-80 
+                  rounded-full overflow-hidden 
+                  border-[4px] sm:border-[6px] border-white dark:border-gray-800 
+                  shadow-xl  
+                  transform transition-transform duration-300 ease-out
+                "
               >
                 <img
                   loading="lazy"
                   src={profileImage}
                   alt={personal.name}
-                  className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105" // Subtle zoom on hover
+                  className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
                 />
               </div>
 
-              {/* Soft pulsing outline ring (now an outline effect) */}
+              {/* Soft pulsing outline ring */}
               <motion.div
-                className="absolute -inset-1 rounded-full pointer-events-none" // -inset-1 creates a tight border effect
+                className="absolute -inset-1 rounded-full pointer-events-none"
                 style={{
                   border: "3px solid",
-                  borderColor: "var(--color-primary, #3B82F6)", // Use a CSS variable or Tailwind color
+                  borderColor: "var(--color-primary, #3B82F6)",
                 }}
                 animate={{ scale: [1, 1.02, 1], opacity: [0.6, 1, 0.6] }}
                 transition={{
@@ -140,12 +145,12 @@ export const Hero = () => {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 1, type: "spring", stiffness: 300 }}
-                className="absolute bottom-4 right-4 p-2 bg-green-500 rounded-full border-4 border-white dark:border-gray-800 shadow-md"
-                title="Available for contact" // Good for accessibility
+                className="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 p-1.5 sm:p-2 bg-green-500 rounded-full border-2 sm:border-4 border-white dark:border-gray-800 shadow-md"
+                title="Available for contact"
               >
                 <span className="sr-only">Available</span>
                 <svg
-                  className="w-3 h-3 text-white"
+                  className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >

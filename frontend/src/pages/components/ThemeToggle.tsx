@@ -1,6 +1,7 @@
+import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export const useTheme = () => {
+export const ThemeToggle = () => {
   const [theme, setTheme] = useState<"light" | "dark">(() => {
     const stored = localStorage.getItem("theme");
     if (stored === "dark" || stored === "light") return stored;
@@ -16,25 +17,18 @@ export const useTheme = () => {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  // Listen for OS-level theme changes
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
-    const handleChange = (e: MediaQueryListEvent) => {
-      // Only update if user hasn't explicitly chosen a theme
-      if (!localStorage.getItem("theme")) {
-        setTheme(e.matches ? "dark" : "light");
-      }
-    };
-
-    mediaQuery.addEventListener("change", handleChange);
-
-    return () => mediaQuery.removeEventListener("change", handleChange);
-  }, []);
-
   const toggleTheme = () => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
   };
 
-  return { theme, toggleTheme };
+  return (
+    <button
+      onClick={toggleTheme}
+      className="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+      aria-label="Toggle theme"
+    >
+      {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+    </button>
+  );
 };
+

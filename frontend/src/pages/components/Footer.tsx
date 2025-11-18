@@ -4,7 +4,7 @@ import { portfolioConfig } from "../../config/portfolio";
 
 export const Footer = () => {
   return (
-    <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-12 px-6">
+    <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 sm:py-12 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col items-center">
           <motion.div
@@ -14,12 +14,12 @@ export const Footer = () => {
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <p className="text-gray-600 dark:text-gray-400 flex items-center gap-2 justify-center mb-2">
+            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 flex items-center gap-2 justify-center mb-2">
               Built with{" "}
-              <Heart size={16} className="text-red-500" fill="currentColor" />{" "}
+              <Heart size={14} className="sm:w-4 sm:h-4 text-red-500" fill="currentColor" />{" "}
               using React, TypeScript & Framer Motion
             </p>
-            <p className="text-sm text-gray-500 dark:text-gray-500">
+            <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-500">
               © {new Date().getFullYear()} {portfolioConfig.personal.name}. All
               rights reserved.
             </p>

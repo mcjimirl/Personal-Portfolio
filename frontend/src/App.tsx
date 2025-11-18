@@ -1,3 +1,4 @@
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { Footer } from "./pages/components/Footer";
 import { Navbar } from "./pages/components/Navbar";
 import { About } from "./pages/sections/About";
@@ -7,22 +8,33 @@ import { Hero } from "./pages/sections/Hero";
 import { Projects } from "./pages/sections/Projects";
 import { Testimonials } from "./pages/sections/Testimonial";
 
-function App() {
+function HomePage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
-      <Navbar />
-      <main className="pt-16">
-        <Hero />
-        <About />
-        <Projects />
-        <Experience />
-        <Testimonials />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <>
+      <Hero />
+      <About />
+      <Projects />
+      <Experience />
+      <Testimonials />
+      <Contact />
+    </>
   );
 }
-// test commentv 2
+
+function App() {
+  return (
+    <Router>
+      <div className="min-h-screen bg-white dark:bg-gray-900 overflow-hidden">
+        <Navbar />
+        <main className="pt-16 sm:pt-20">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
+  );
+}
 
 export default App;

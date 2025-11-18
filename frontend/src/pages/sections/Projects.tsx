@@ -20,7 +20,10 @@ export const Projects = memo(() => {
       if (carouselRef.current) {
         const container = carouselRef.current.offsetWidth;
         setCarouselWidth(container);
-        const calculatedCardWidth = Math.min(container * 0.75, 400);
+        const calculatedCardWidth = Math.min(
+          container * 0.85,
+          window.innerWidth < 640 ? container * 0.9 : 400
+        );
         setCardWidth(calculatedCardWidth);
       }
     };
@@ -55,7 +58,7 @@ export const Projects = memo(() => {
   return (
     <Section
       id="projects"
-      className="bg-gray-50 dark:bg-gray-800 overflow-hidden"
+      className="bg-gray-50 dark:bg-gray-800 overflow-hidden py-12 sm:py-16 md:py-20"
     >
       <SectionTitle subtitle="Check out my recent work">
         Featured Projects
@@ -63,10 +66,10 @@ export const Projects = memo(() => {
 
       <motion.div
         ref={carouselRef}
-        className="px-4 md:px-10 select-none cursor-grab active:cursor-grabbing"
+        className="px-2 sm:px-4 md:px-10 select-none cursor-grab active:cursor-grabbing"
       >
         <motion.div
-          className="flex gap-6"
+          className="flex gap-4 sm:gap-6"
           drag="x"
           dragConstraints={{
             right: 0,
@@ -86,8 +89,11 @@ export const Projects = memo(() => {
           {[...projects, ...projects].map((project, index) => (
             <motion.div
               key={`${project.id}-${index}`}
-              className="flex-shrink-0 mt-8"
-              style={{ width: cardWidth, height: 500 }}
+              className="flex-shrink-0 mt-4 sm:mt-8"
+              style={{ 
+                width: cardWidth, 
+                height: window.innerWidth < 640 ? 450 : 500 
+              }}
             >
               <ProjectCard
                 title={project.title}
