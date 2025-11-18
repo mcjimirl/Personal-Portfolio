@@ -1,6 +1,6 @@
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
-import { Facebook, Github, Globe, Linkedin, Mail, Send } from "lucide-react";
+import { Facebook, Github, Globe, Linkedin, Send } from "lucide-react";
 import { useRef, useState } from "react";
 import { portfolioConfig } from "../../config/portfolio";
 import { Button } from "../components/Button";
@@ -46,7 +46,7 @@ export const Contact = () => {
   return (
     <Section
       id="contact"
-      className="bg-gray-50 dark:bg-gray-800 py-12 sm:py-16 md:py-20"
+      className="bg-gray-50 dark:bg-gray-900 py-12 sm:py-16 md:py-20"
     >
       <SectionTitle subtitle="Let's work together">Get In Touch</SectionTitle>
 
@@ -56,7 +56,7 @@ export const Contact = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-6 sm:p-8 md:p-12"
+          className="bg-gray-200 dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8 md:p-12"
         >
           <div className="text-center mb-6 sm:mb-8">
             <motion.div
@@ -64,10 +64,8 @@ export const Contact = () => {
               whileInView={{ scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, type: "spring" }}
-              className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-blue-100 dark:bg-blue-900 rounded-full mb-3 sm:mb-4"
-            >
-              <Mail className="text-blue-600 dark:text-blue-400 w-6 h-6 sm:w-8 sm:h-8" />
-            </motion.div>
+              // className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-blue-100 dark:bg-blue-900 rounded-full mb-3 sm:mb-4"
+            ></motion.div>
 
             <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300">
               Have a project in mind? Message me directly using the form below.
@@ -85,7 +83,7 @@ export const Contact = () => {
               name="user_name"
               placeholder="Your Name.."
               required
-              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg bg-gray-100 dark:bg-gray-300 dark:text-gray-800 focus:ring-2 focus:ring-blue-500 outline-none"
             />
 
             <input
@@ -93,15 +91,15 @@ export const Contact = () => {
               name="user_email"
               placeholder="Your Email.."
               required
-              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg bg-gray-100 dark:bg-gray-300  dark:text-gray-800 focus:ring-2 focus:ring-blue-500 outline-none"
             />
 
             <textarea
               name="message"
-              rows={5}
+              rows={3}
               placeholder="Your Message.."
               required
-              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none resize-none"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg bg-gray-100 dark:bg-gray-300  dark:text-gray-800 focus:ring-2 focus:ring-blue-500 outline-none resize-none"
             ></textarea>
 
             <div className="flex justify-center">
@@ -132,7 +130,7 @@ export const Contact = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-200 dark:border-gray-700 text-center"
+            className="mt-8 sm:mt-12 pt-2 sm:pt-3 border-t border-gray-200 dark:border-gray-700 text-center"
           >
             <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 sm:mb-6">
               Or connect with me on social media

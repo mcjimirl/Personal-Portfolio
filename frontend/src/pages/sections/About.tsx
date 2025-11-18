@@ -6,7 +6,10 @@ export const About = () => {
   const { personal, skills } = portfolioConfig;
 
   return (
-    <Section id="about" className="bg-white dark:bg-gray-900 py-12 sm:py-16 md:py-20">
+    <Section
+      id="about"
+      className="bg-white dark:bg-gray-900 py-12 sm:py-16 md:py-20"
+    >
       <SectionTitle subtitle="Get to know me better">About Me</SectionTitle>
       <h3 className="flex justify-center items-center text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
         Skills & Technologies

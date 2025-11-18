@@ -1,4 +1,5 @@
 import nice from "../assets/testimonies/nicenvrro.png";
+import vincent from "../assets/testimonies/Vncnt.png";
 export const portfolioConfig = {
   personal: {
     name: "Mark Jaemerl Diestro",
@@ -130,14 +131,14 @@ export const portfolioConfig = {
     {
       id: 2,
       quote:
-        "Working with Mark on the Capstone project was a pleasure. His knowledge of deep learning and Flutter was instrumental in our success, and his commitment to quality documentation is top-notch.",
-      reviewer: "John Smith",
-      role: "Project Manager",
-      company: "Capstone Project",
-      imageUrl: "https://randomuser.me/api/portraits/men/2.jpg",
+        "Working with Mark Jaemerl Diestro has been inspiring. As a full stack software developer, his dedication, eagerness to learn, and consistent delivery of good - quality output show how committed he is to becoming better every day - all while staying humble.",
+      reviewer: "Mc Vincent Paredes",
+      role: "UI/UX Designer and Software Developer",
+      company: "Quantum Cloud Corporation",
+      imageUrl: vincent,
       rating: 5,
-      github: "https://github.com/janedoe-dev",
-      website: "https://janedoe.com/portfolio",
+      github: "https://github.com/EmsiPrds",
+      website: "https://mcvincentparedes.vercel.app",
     },
     {
       id: 3,

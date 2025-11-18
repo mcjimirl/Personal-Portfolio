@@ -64,13 +64,14 @@ const DEFAULT_ITEMS: CarouselItem[] = [
 const DRAG_BUFFER = 0;
 const VELOCITY_THRESHOLD = 500;
 const GAP = 16;
+
 const SPRING_OPTIONS: Transition = {
   type: "spring",
   stiffness: 300,
   damping: 30,
 };
 
-// Custom hook to generate rotateY MotionValues
+// Handle rotateY values
 function useRotateYValues(
   x: MotionValue<number>,
   itemCount: number,
@@ -84,15 +85,17 @@ function useRotateYValues(
       -(index - 1) * trackItemOffset,
     ];
     const outputRange = [90, 0, -90];
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    rotateYValues.push(useTransform(x, range, outputRange, { clamp: false }));
+    rotateYValues.push(
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useTransform(x, range, outputRange, { clamp: false })
+    );
   }
   return rotateYValues;
 }
 
 export default function Carousel({
   items = DEFAULT_ITEMS,
-  baseWidth = 300,
+  baseWidth = 550,
   autoplay = false,
   autoplayDelay = 3000,
   pauseOnHover = false,
@@ -101,9 +104,13 @@ export default function Carousel({
 }: CarouselProps): JSX.Element {
   const containerPadding = 16;
   const itemWidth = baseWidth - containerPadding * 2;
-  const trackItemOffset = itemWidth + GAP;
 
+  // NEW — Responsive height
+  const itemHeight = round ? itemWidth : itemWidth * 0.75;
+
+  const trackItemOffset = itemWidth + GAP;
   const carouselItems = loop ? [...items, items[0]] : items;
+
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const x = useMotionValue(0);
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -117,6 +124,7 @@ export default function Carousel({
 
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Pause on hover
   useEffect(() => {
     if (pauseOnHover && containerRef.current) {
       const container = containerRef.current;
@@ -131,6 +139,7 @@ export default function Carousel({
     }
   }, [pauseOnHover]);
 
+  // Autoplay
   useEffect(() => {
     if (autoplay && (!pauseOnHover || !isHovered)) {
       const timer = setInterval(() => {
@@ -140,6 +149,7 @@ export default function Carousel({
           return prev + 1;
         });
       }, autoplayDelay);
+
       return () => clearInterval(timer);
     }
   }, [
@@ -235,7 +245,7 @@ export default function Carousel({
             } overflow-hidden cursor-grab active:cursor-grabbing`}
             style={{
               width: itemWidth,
-              height: round ? itemWidth : "100%",
+              height: itemHeight, // NEW — responds to baseWidth
               rotateY: rotateYValues[index],
               ...(round && { borderRadius: "50%" }),
             }}
@@ -246,6 +256,7 @@ export default function Carousel({
                 {item.icon}
               </span>
             </div>
+
             <div className="p-5">
               <div className="mb-1 font-black text-lg text-white dark:text-gray-700">
                 {item.title}

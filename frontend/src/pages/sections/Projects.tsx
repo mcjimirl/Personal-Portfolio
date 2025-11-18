@@ -58,7 +58,7 @@ export const Projects = memo(() => {
   return (
     <Section
       id="projects"
-      className="bg-gray-50 dark:bg-gray-800 overflow-hidden py-12 sm:py-16 md:py-20"
+      className="bg-gray-50 dark:bg-gray-900 overflow-hidden py-12 sm:py-16 md:py-20"
     >
       <SectionTitle subtitle="Check out my recent work">
         Featured Projects
@@ -90,9 +90,9 @@ export const Projects = memo(() => {
             <motion.div
               key={`${project.id}-${index}`}
               className="flex-shrink-0 mt-4 sm:mt-8"
-              style={{ 
-                width: cardWidth, 
-                height: window.innerWidth < 640 ? 450 : 500 
+              style={{
+                width: cardWidth,
+                height: window.innerWidth < 640 ? 450 : 500,
               }}
             >
               <ProjectCard
