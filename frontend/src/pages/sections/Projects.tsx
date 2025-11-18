@@ -11,14 +11,32 @@ export const Projects = memo(() => {
   const x = useMotionValue(0);
   const [isHovered, setIsHovered] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [carouselWidth, setCarouselWidth] = useState(0);
+  const [cardWidth, setCardWidth] = useState(0);
 
+  // Measure container width to make drag constraints responsive
+  useEffect(() => {
+    const updateSizes = () => {
+      if (carouselRef.current) {
+        const container = carouselRef.current.offsetWidth;
+        setCarouselWidth(container);
+        const calculatedCardWidth = Math.min(container * 0.75, 400);
+        setCardWidth(calculatedCardWidth);
+      }
+    };
+    updateSizes();
+    window.addEventListener("resize", updateSizes);
+    return () => window.removeEventListener("resize", updateSizes);
+  }, []);
+
+  // Autoscroll animation
   useEffect(() => {
     if (isHovered || isDragging) {
       controls.stop();
       return;
     }
 
-    const totalWidth = projects.length * 420; // estimated card width + gap
+    const totalWidth = projects.length * (cardWidth + 24); // 24px gap
     const animate = async () => {
       while (true) {
         await controls.start({
@@ -28,11 +46,11 @@ export const Projects = memo(() => {
             ease: "linear",
           },
         });
-        await controls.set({ x: 0 }); // reset position for seamless looping
+        await controls.set({ x: 0 });
       }
     };
     animate();
-  }, [controls, projects.length, isHovered, isDragging]);
+  }, [controls, projects.length, isHovered, isDragging, cardWidth]);
 
   return (
     <Section
@@ -45,25 +63,17 @@ export const Projects = memo(() => {
 
       <motion.div
         ref={carouselRef}
-        className="px-10 select-none cursor-grab active:cursor-grabbing"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={{
-          hidden: { opacity: 0, y: 30 },
-          visible: {
-            opacity: 1,
-            y: 0,
-            transition: { staggerChildren: 0.1, duration: 0.4 },
-          },
-        }}
+        className="px-4 md:px-10 select-none cursor-grab active:cursor-grabbing"
       >
         <motion.div
           className="flex gap-6"
           drag="x"
           dragConstraints={{
             right: 0,
-            left: -((projects.length - 1) * 420),
+            left: -Math.max(
+              0,
+              projects.length * (cardWidth + 24) - carouselWidth
+            ),
           }}
           style={{ x }}
           animate={controls}
@@ -72,15 +82,12 @@ export const Projects = memo(() => {
           onDragStart={() => setIsDragging(true)}
           onDragEnd={() => setIsDragging(false)}
         >
-          {/* Duplicate list for seamless looping */}
+          {/* Duplicate for seamless looping */}
           {[...projects, ...projects].map((project, index) => (
             <motion.div
               key={`${project.id}-${index}`}
-              className="flex-shrink-0 w-[320px] md:w-[360px] lg:w-[400px] h-[500px] mt-8"
-              variants={{
-                hidden: { opacity: 0, y: 30 },
-                visible: { opacity: 1, y: 0 },
-              }}
+              className="flex-shrink-0 mt-8"
+              style={{ width: cardWidth, height: 500 }}
             >
               <ProjectCard
                 title={project.title}

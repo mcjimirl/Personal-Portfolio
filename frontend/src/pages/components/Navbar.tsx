@@ -1,12 +1,12 @@
 import MJD from "@/assets/images/MJD.png";
 import MJDWhite from "@/assets/images/MJDW.png";
 import { motion } from "framer-motion";
-import { Menu, Moon, Sun, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { useTheme } from "../../hooks/useTheme";
 
 export const Navbar = () => {
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
@@ -33,6 +33,7 @@ export const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
+          {/* Logo */}
           <motion.button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             whileHover={{ scale: 1.05 }}
@@ -46,6 +47,7 @@ export const Navbar = () => {
             />
           </motion.button>
 
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <motion.button
@@ -59,17 +61,8 @@ export const Navbar = () => {
             ))}
           </div>
 
-          <div className="md:hidden flex items-center gap-4">
-            <motion.button
-              onClick={toggleTheme}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
-              aria-label="Toggle theme"
-            >
-              {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
-            </motion.button>
-
+          {/* Mobile Menu Toggle (all the way to the right) */}
+          <div className="md:hidden flex items-center">
             <motion.button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               whileTap={{ scale: 0.9 }}
@@ -81,6 +74,7 @@ export const Navbar = () => {
           </div>
         </div>
 
+        {/* Mobile Dropdown */}
         {isMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}

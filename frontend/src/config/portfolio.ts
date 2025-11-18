@@ -1,3 +1,4 @@
+import nice from "../assets/testimonies/nicenvrro.png";
 export const portfolioConfig = {
   personal: {
     name: "Mark Jaemerl Diestro",
@@ -117,11 +118,14 @@ export const portfolioConfig = {
     {
       id: 1,
       quote:
-        "Mark is an exceptionally dedicated and sharp full-stack developer. He consistently delivers high-quality, scalable code and is a true problem-solver. I highly recommend him for any complex engineering role.",
-      reviewer: "Jane Doe",
-      role: "Senior Software Engineer",
+        "I’ve worked with Mr. Diestro on several projects, and he consistently brings solid technical judgment and practical problem-solving skills. Collaborating with him has always been straightforward—he communicates clearly, follows through, and brings real value to every project he touches.",
+      reviewer: "Nice Navarro",
+      role: "Software Developer",
       company: "Wayne Enterprise Solution Corp.",
-      imageUrl: "https://randomuser.me/api/portraits/women/1.jpg", // Example image URL
+      imageUrl: nice,
+      rating: 5,
+      github: "https://github.com/nicenvrro-dev",
+      website: "https://www.nicenvrro.site",
     },
     {
       id: 2,
@@ -130,7 +134,10 @@ export const portfolioConfig = {
       reviewer: "John Smith",
       role: "Project Manager",
       company: "Capstone Project",
-      imageUrl: "https://randomuser.me/api/portraits/men/2.jpg", // Example image URL
+      imageUrl: "https://randomuser.me/api/portraits/men/2.jpg",
+      rating: 5,
+      github: "https://github.com/janedoe-dev",
+      website: "https://janedoe.com/portfolio",
     },
     {
       id: 3,
@@ -139,7 +146,10 @@ export const portfolioConfig = {
       reviewer: "Alice Johnson",
       role: "UI/UX Designer",
       company: "Philippine Innovative Hub Academy Corp.",
-      imageUrl: "https://randomuser.me/api/portraits/women/3.jpg", // Example image URL
+      imageUrl: "https://randomuser.me/api/portraits/women/3.jpg",
+      rating: 5,
+      github: "https://github.com/janedoe-dev",
+      website: "https://janedoe.com/portfolio",
     },
     {
       id: 4,
@@ -148,7 +158,10 @@ export const portfolioConfig = {
       reviewer: "Michael Brown",
       role: "Team Lead",
       company: "Tech Innovators Inc.",
-      imageUrl: "https://randomuser.me/api/portraits/men/4.jpg", // Example image URL
+      imageUrl: "https://randomuser.me/api/portraits/men/4.jpg",
+      rating: 5,
+      github: "https://github.com/janedoe-dev",
+      website: "https://janedoe.com/portfolio",
     },
     {
       id: 5,
@@ -157,7 +170,10 @@ export const portfolioConfig = {
       reviewer: "Sarah Wilson",
       role: "Operations Manager",
       company: "Global Solutions",
-      imageUrl: "https://randomuser.me/api/portraits/women/5.jpg", // Example image URL
+      imageUrl: "https://randomuser.me/api/portraits/women/5.jpg",
+      rating: 5,
+      github: "https://github.com/janedoe-dev",
+      website: "https://janedoe.com/portfolio",
     },
   ],
 };
