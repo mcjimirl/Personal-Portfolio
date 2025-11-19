@@ -69,9 +69,12 @@ const DragIndicator = () => (
 
 export const Testimonials = () => {
   const { testimonials } = portfolioConfig;
+
   const [activeIndex, setActiveIndex] = useState(
     Math.floor(testimonials.length / 2)
   );
+
+  const [progress, setProgress] = useState(0);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
@@ -86,14 +89,33 @@ export const Testimonials = () => {
     }
   }, []);
 
+  // 🔥 Auto-advance + progress bar synchronized
+  useEffect(() => {
+    setProgress(0);
+
+    const slideTimer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+
+    // animate progress bar → 0 to 100 in 5s
+    const progressTimer = setInterval(() => {
+      setProgress((p) => (p >= 100 ? 100 : p + 1));
+    }, 50);
+
+    return () => {
+      clearInterval(slideTimer);
+      clearInterval(progressTimer);
+    };
+  }, [activeIndex, testimonials.length]);
+
   const handleNext = () =>
     setActiveIndex((prev) => (prev + 1) % testimonials.length);
+
   const handlePrev = () =>
     setActiveIndex(
       (prev) => (prev - 1 + testimonials.length) % testimonials.length
     );
 
-  // Calculate dynamic card width based on container
   const getCardWidth = () => {
     if (containerWidth < 640) return containerWidth * 0.9;
     if (containerWidth < 1024) return containerWidth * 0.75;
@@ -113,18 +135,15 @@ export const Testimonials = () => {
         ref={containerRef}
         className="relative flex justify-center items-center perspective-[1400px] py-8 sm:py-12 md:py-14 w-full"
       >
-        {/* Left Arrow */}
+        {/* Left Button */}
         <button
           onClick={handlePrev}
-          className="absolute left-2 sm:left-4 md:left-10 top-1/2 -translate-y-1/2 z-40 
-					p-2 sm:p-3 rounded-full bg-white dark:bg-gray-800 shadow-xl 
-					border border-gray-200 dark:border-gray-700
-					hover:scale-110 active:scale-95 transition"
+          className="absolute left-2 sm:left-4 md:left-10 top-1/2 -translate-y-1/2 z-40 p-2 sm:p-3 rounded-full bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-700 hover:scale-110 active:scale-95 transition"
         >
           <ChevronLeft className="w-5 h-5 sm:w-7 sm:h-7 text-blue-600 dark:text-blue-400" />
         </button>
 
-        {/* Cards */}
+        {/* CARDS */}
         {testimonials.map((testimonial, index) => {
           const offset = index - activeIndex;
           const isActive = offset === 0;
@@ -159,28 +178,66 @@ export const Testimonials = () => {
                 pointerEvents,
               }}
             >
-              <div
-                className={`w-full min-h-[280px] sm:min-h-[300px] bg-white dark:bg-gray-800 border border-blue-200 dark:border-blue-700/50 rounded-2xl sm:rounded-3xl shadow-2xl transition-all duration-300 mt-6 sm:mt-10 flex flex-col justify-between p-4 sm:p-6 md:p-10`}
-              >
+              <div className="w-full min-h-[280px] sm:min-h-[300px] bg-white dark:bg-gray-800 border border-blue-200 dark:border-blue-700/50 rounded-2xl sm:rounded-3xl shadow-2xl transition-all duration-300 mt-6 sm:mt-10 flex flex-col justify-between p-4 sm:p-6 md:p-10">
                 <div className="flex justify-between items-start mb-3 sm:mb-4">
-                  <Quote className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500 dark:text-blue-400 opacity-70 flex-shrink-0" />
+                  <Quote className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500 dark:text-blue-400 opacity-70" />
                   {testimonial.rating && (
                     <StarRating rating={testimonial.rating} />
                   )}
                 </div>
+
                 <div className="flex-grow mb-4 sm:mb-8">
                   <p className="text-sm sm:text-base md:text-lg italic font-medium text-gray-700 dark:text-gray-300">
                     "{testimonial.quote}"
                   </p>
                 </div>
+
+                {/* Reviewer with Circular Loader */}
                 <div className="pt-3 sm:pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center gap-3 sm:gap-4">
-                  {testimonial.imageUrl && (
-                    <img
-                      src={testimonial.imageUrl}
-                      alt={testimonial.reviewer}
-                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-blue-400 dark:border-blue-600 shadow-md flex-shrink-0"
-                    />
-                  )}
+                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0">
+                    {isActive && (
+                      <svg
+                        viewBox="0 0 100 100"
+                        className="absolute top-0 left-0 w-full h-full"
+                        style={{ transform: "rotate(-90deg)" }}
+                      >
+                        <circle
+                          cx="50"
+                          cy="50"
+                          r="45"
+                          stroke="#93C5FD"
+                          strokeWidth="5"
+                          fill="none"
+                          opacity={0.3}
+                        />
+                        <circle
+                          cx="50"
+                          cy="50"
+                          r="45"
+                          stroke="#3B82F6"
+                          strokeWidth="5"
+                          fill="none"
+                          strokeDasharray={2 * Math.PI * 45}
+                          strokeDashoffset={
+                            (2 * Math.PI * 45 * (100 - progress)) / 100
+                          }
+                          strokeLinecap="round"
+                          className="transition-all duration-50"
+                        />
+                      </svg>
+                    )}
+
+                    {/* Profile Image */}
+                    {testimonial.imageUrl && (
+                      <img
+                        src={testimonial.imageUrl}
+                        alt={testimonial.reviewer}
+                        className="absolute top-1/2 left-1/2 w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-blue-400 dark:border-blue-600 shadow-md -translate-x-1/2 -translate-y-1/2"
+                      />
+                    )}
+                  </div>
+
+                  {/* Reviewer Info */}
                   <div>
                     <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 dark:text-white">
                       {testimonial.reviewer}
@@ -193,28 +250,29 @@ export const Testimonials = () => {
                     </p>
                   </div>
                 </div>
+
+                {/* Links */}
                 <div className="flex justify-center space-x-2 sm:space-x-4 py-3 sm:py-4 border-y border-gray-100 dark:border-gray-700 my-3 sm:my-4 flex-wrap gap-2">
                   {testimonial.github && (
                     <a
                       href={testimonial.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all text-[10px] sm:text-xs font-medium shadow-sm active:scale-95"
-                      aria-label={`GitHub Profile for ${testimonial.reviewer}`}
+                      className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 text-[10px] sm:text-xs font-medium shadow-sm"
                     >
-                      <Github size={14} className="sm:w-4 sm:h-4" />
+                      <Github size={14} />
                       GitHub
                     </a>
                   )}
+
                   {testimonial.website && (
                     <a
                       href={testimonial.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 bg-blue-500 rounded-full text-white hover:bg-blue-600 transition-all text-[10px] sm:text-xs font-medium shadow-sm active:scale-95"
-                      aria-label={`Website/Portfolio for ${testimonial.reviewer}`}
+                      className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 bg-blue-500 rounded-full text-white hover:bg-blue-600 text-[10px] sm:text-xs font-medium shadow-sm"
                     >
-                      <Link size={14} className="sm:w-4 sm:h-4" />
+                      <Link size={14} />
                       Portfolio
                     </a>
                   )}
@@ -224,15 +282,20 @@ export const Testimonials = () => {
           );
         })}
 
-        <div style={{ width: getCardWidth(), height: typeof window !== 'undefined' && window.innerWidth < 640 ? 400 : 450 }} />
+        <div
+          style={{
+            width: getCardWidth(),
+            height:
+              typeof window !== "undefined" && window.innerWidth < 640
+                ? 400
+                : 450,
+          }}
+        />
 
-        {/* Right Arrow */}
+        {/* Right Button */}
         <button
           onClick={handleNext}
-          className="absolute right-2 sm:right-4 md:right-10 top-1/2 -translate-y-1/2 z-40 
-					p-2 sm:p-3 rounded-full bg-white dark:bg-gray-800 shadow-xl 
-					border border-gray-200 dark:border-gray-700
-					hover:scale-110 active:scale-95 transition"
+          className="absolute right-2 sm:right-4 md:right-10 top-1/2 -translate-y-1/2 z-40 p-2 sm:p-3 rounded-full bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-700 hover:scale-110 active:scale-95 transition"
         >
           <ChevronRight className="w-5 h-5 sm:w-7 sm:h-7 text-blue-600 dark:text-blue-400" />
         </button>
