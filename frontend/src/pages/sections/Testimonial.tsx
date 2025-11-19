@@ -70,12 +70,12 @@ const DragIndicator = () => (
 export const Testimonials = () => {
   const { testimonials } = portfolioConfig;
 
+  // Start with the middle card active
   const [activeIndex, setActiveIndex] = useState(
     Math.floor(testimonials.length / 2)
   );
 
   const [progress, setProgress] = useState(0);
-
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
 
@@ -89,7 +89,7 @@ export const Testimonials = () => {
     }
   }, []);
 
-  // 🔥 Auto-advance + progress bar synchronized
+  // Auto-slide and progress
   useEffect(() => {
     setProgress(0);
 
@@ -97,10 +97,9 @@ export const Testimonials = () => {
       setActiveIndex((prev) => (prev + 1) % testimonials.length);
     }, 5000);
 
-    // animate progress bar → 0 to 100 in 5s
     const progressTimer = setInterval(() => {
-      setProgress((p) => (p >= 100 ? 100 : p + 1));
-    }, 50);
+      setProgress((p) => (p >= 100 ? 100 : p + 0.5));
+    }, 25);
 
     return () => {
       clearInterval(slideTimer);
@@ -110,7 +109,6 @@ export const Testimonials = () => {
 
   const handleNext = () =>
     setActiveIndex((prev) => (prev + 1) % testimonials.length);
-
   const handlePrev = () =>
     setActiveIndex(
       (prev) => (prev - 1 + testimonials.length) % testimonials.length
@@ -143,11 +141,10 @@ export const Testimonials = () => {
           <ChevronLeft className="w-5 h-5 sm:w-7 sm:h-7 text-blue-600 dark:text-blue-400" />
         </button>
 
-        {/* CARDS */}
+        {/* Cards */}
         {testimonials.map((testimonial, index) => {
           const offset = index - activeIndex;
           const isActive = offset === 0;
-
           const cardWidth = getCardWidth();
           const x = offset * (cardWidth + 16);
           const z = isActive ? 0 : -200;
@@ -155,6 +152,10 @@ export const Testimonials = () => {
           const scale = isActive ? 1 : 0.85;
           const opacity = isActive ? 1 : 0.4;
           const pointerEvents = isActive ? "auto" : "none";
+
+          const radius = 45;
+          const circumference = 2 * Math.PI * radius;
+          const dashOffset = circumference - (progress / 100) * circumference;
 
           return (
             <motion.div
@@ -192,7 +193,7 @@ export const Testimonials = () => {
                   </p>
                 </div>
 
-                {/* Reviewer with Circular Loader */}
+                {/* Reviewer with circular loader only if active */}
                 <div className="pt-3 sm:pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center gap-3 sm:gap-4">
                   <div className="relative w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0">
                     {isActive && (
@@ -204,7 +205,7 @@ export const Testimonials = () => {
                         <circle
                           cx="50"
                           cy="50"
-                          r="45"
+                          r={radius}
                           stroke="#93C5FD"
                           strokeWidth="5"
                           fill="none"
@@ -213,21 +214,18 @@ export const Testimonials = () => {
                         <circle
                           cx="50"
                           cy="50"
-                          r="45"
+                          r={radius}
                           stroke="#3B82F6"
                           strokeWidth="5"
                           fill="none"
-                          strokeDasharray={2 * Math.PI * 45}
-                          strokeDashoffset={
-                            (2 * Math.PI * 45 * (100 - progress)) / 100
-                          }
+                          strokeDasharray={circumference}
+                          strokeDashoffset={dashOffset}
                           strokeLinecap="round"
                           className="transition-all duration-50"
                         />
                       </svg>
                     )}
 
-                    {/* Profile Image */}
                     {testimonial.imageUrl && (
                       <img
                         src={testimonial.imageUrl}
@@ -237,7 +235,6 @@ export const Testimonials = () => {
                     )}
                   </div>
 
-                  {/* Reviewer Info */}
                   <div>
                     <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 dark:text-white">
                       {testimonial.reviewer}
