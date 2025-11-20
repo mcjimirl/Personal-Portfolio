@@ -7,7 +7,6 @@ import { Experience } from "./pages/sections/Experience";
 import { Hero } from "./pages/sections/Hero";
 import { Projects } from "./pages/sections/Projects";
 import { Testimonials } from "./pages/sections/Testimonial";
-import { ScrollToHeroButton } from "./pages/components/ScrollUp";
 
 function HomePage() {
   return (
@@ -27,7 +26,6 @@ function App() {
     <Router>
       <div className="min-h-screen bg-white dark:bg-gray-900 overflow-hidden">
         <Navbar />
-        <ScrollToHeroButton />
         <main className="pt-16 sm:pt-20">
           <Routes>
             <Route path="/" element={<HomePage />} />

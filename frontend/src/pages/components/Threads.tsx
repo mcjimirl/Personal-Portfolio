@@ -141,7 +141,7 @@ const Threads: React.FC<ThreadsProps> = ({
     if (!containerRef.current) return;
     const container = containerRef.current;
 
-    // ✅ Centered and GPU optimized WebGL renderer
+    //Centered and GPU optimized WebGL renderer
     const renderer = new Renderer({ alpha: true, antialias: true });
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
@@ -165,7 +165,7 @@ const Threads: React.FC<ThreadsProps> = ({
 
     const mesh = new Mesh(gl, { geometry, program });
 
-    // ✅ Resize with proper centering
+    //Resize with proper centering
     const resize = () => {
       const { clientWidth, clientHeight } = container;
       const scale = 0.75;
@@ -190,7 +190,7 @@ const Threads: React.FC<ThreadsProps> = ({
     window.addEventListener("resize", resize);
     resize();
 
-    // ✅ Smooth mouse tracking
+    //Smooth mouse tracking
     const currentMouse = [0.5, 0.5];
     const targetMouse = [0.5, 0.5];
     function handleMouseMove(e: MouseEvent) {
@@ -208,7 +208,7 @@ const Threads: React.FC<ThreadsProps> = ({
       container.addEventListener("mouseleave", handleMouseLeave);
     }
 
-    // ✅ Throttled loop
+    //Throttled loop
     let lastTime = 0;
     const frameInterval = 1000 / fps;
     const update = (t: number) => {

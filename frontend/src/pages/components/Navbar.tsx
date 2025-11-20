@@ -7,24 +7,38 @@ import { useEffect, useState } from "react";
 export const Navbar = () => {
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const [showNavbar, setShowNavbar] = useState(true);
 
-  // Show navbar only when the Hero section is in view
   useEffect(() => {
     const heroSection = document.querySelector("#hero");
     if (!heroSection) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const isVisible = entries[0].isIntersecting;
-        setShowNavbar(isVisible);
-      },
-      { threshold: 0.3 }
-    );
+    let lastScrollY = window.scrollY;
 
-    observer.observe(heroSection);
-    return () => observer.disconnect();
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      const heroRect = heroSection.getBoundingClientRect();
+      const heroVisible = heroRect.top <= 0 && heroRect.bottom >= 0;
+
+      if (heroVisible) {
+        // Always show navbar in Hero section
+        setShowNavbar(true);
+      } else {
+        // Scroll up → show navbar
+        if (currentY < lastScrollY) {
+          setShowNavbar(true);
+        } else {
+          // Scroll down → hide navbar
+          setShowNavbar(false);
+        }
+      }
+
+      lastScrollY = currentY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Sync theme
@@ -53,7 +67,7 @@ export const Navbar = () => {
   }, []);
 
   const navLinks = [
-    // { label: "Home", href: "#hero" },
+    { label: "Home", href: "#hero" },
     { label: "About", href: "#about" },
     { label: "Projects", href: "#projects" },
     { label: "Experience", href: "#experience" },
@@ -71,14 +85,14 @@ export const Navbar = () => {
     <motion.nav
       initial={{ opacity: 0, y: -40 }}
       animate={showNavbar ? { opacity: 1, y: 0 } : { opacity: 0, y: -40 }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
       className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-800"
     >
       <div className="px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
         <div className="flex items-center justify-between w-full">
           {/* Logo */}
           <motion.button
-            onClick={() => scrollToSection("#home")}
+            onClick={() => scrollToSection("#hero")}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="text-2xl font-bold text-gray-900 dark:text-white"
@@ -104,7 +118,7 @@ export const Navbar = () => {
             ))}
           </div>
 
-          {/* Mobile Nav */}
+          {/* Mobile Nav Button */}
           <div className="md:hidden flex items-center gap-2">
             <motion.button
               onClick={() => setIsMenuOpen(!isMenuOpen)}

@@ -16,7 +16,7 @@ export const Hero = () => {
   return (
     <Section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-12 lg:px-24 overflow-hidden py-12 sm:py-16 md:py-20"
+      className="relative min-h-[100vh] flex items-center justify-center px-4 sm:px-6 md:px-12 lg:px-24 overflow-hidden py-12 sm:py-16 md:py-20"
     >
       {/* Background Effects */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-70">
