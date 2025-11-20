@@ -1,5 +1,7 @@
+import mark from "../assets/testimonies/Menorca.png";
 import nice from "../assets/testimonies/nicenvrro.png";
 import vincent from "../assets/testimonies/Vncnt.png";
+
 export const portfolioConfig = {
   personal: {
     name: "Mark Jaemerl Diestro",
@@ -77,7 +79,7 @@ export const portfolioConfig = {
       period: "2025 - Present",
       location: "Full-Time",
       imageUrl:
-        "https://placehold.co/600x400/0E7490/ffffff?text=Wayne+Enterprise+Project",
+        "https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg",
       achievements: [
         "Led a team of 5 developers in building a scalable Web and Mobile Application",
         "Improved application performance by 40% through optimization.",
@@ -91,7 +93,7 @@ export const portfolioConfig = {
       period: "2024 - 2025",
       location: "Remote",
       imageUrl:
-        "https://placehold.co/600x400/2563EB/ffffff?text=Cacao+Classification+App",
+        "https://images.pexels.com/photos/50707/cocoa-man-colombia-peasant-50707.jpeg",
       achievements: [
         "Created a Mobile Application for Classifying Cacao Variety and Fruit maturity.",
         "Under Machine Learning - Deep Learning",
@@ -105,7 +107,7 @@ export const portfolioConfig = {
       period: "2025 Feb - 2025 Apr",
       location: "Full-Time",
       imageUrl:
-        "https://placehold.co/600x400/9333EA/ffffff?text=PIHAC+System+UI",
+        "https://images.pexels.com/photos/326502/pexels-photo-326502.jpeg",
       achievements: [
         "Developed features for the systems developed by the team in the company",
         "Collaborated with designers to implement the design in figma to hard code",
@@ -139,7 +141,7 @@ export const portfolioConfig = {
       quote:
         "Working with Mark Jaemerl Diestro has been inspiring. As a full stack software developer, his dedication, eagerness to learn, and consistent delivery of good - quality output show how committed he is to becoming better every day - all while staying humble.",
       reviewer: "Mc Vincent Paredes",
-      role: "UI/UX Designer and Software Developer",
+      role: "Senior Software Engineer",
       company: "Quantum Cloud Corporation",
       imageUrl: vincent,
       rating: 5,
@@ -148,38 +150,15 @@ export const portfolioConfig = {
     },
     {
       id: 3,
-      quote: "Ang pogi sobra ni Merl. Lagi ko pa sya napapanaginipan hay.",
-      reviewer: "Dovie Charizard",
+      quote:
+        "I’ve worked with Mr. Diestro on several projects, and he consistently shows strong technical judgment and practical problem-solving skills. He communicates clearly, follows through, and adds real value to every project. As a full-stack developer, Mark Jaemerl Diestro is dedicated, continually improving, and consistently delivering quality work—all while staying humble. Hardworking, proactive, and an excellent communicator, he keeps growing his skills and making a meaningful impact on the team.",
+      reviewer: "Mark Wayne Menorca",
       role: "Masarap Sakalin",
-      company: "Taga Rizal lang",
-      imageUrl: "https://randomuser.me/api/portraits/women/3.jpg",
+      company: "Quantum Cloud Corporation",
+      imageUrl: mark,
       rating: 5,
-      github: "https://github.com/janedoe-dev",
-      website: "https://janedoe.com/portfolio",
-    },
-    {
-      id: 4,
-      quote:
-        "A highly collaborative and patient mentor. Mark's ability to simplify complex technical challenges and communicate them clearly significantly accelerated our team's adoption of TypeScript.",
-      reviewer: "Michael Brown",
-      role: "Team Lead",
-      company: "Tech Innovators Inc.",
-      imageUrl: "https://randomuser.me/api/portraits/men/4.jpg",
-      rating: 5,
-      github: "https://github.com/janedoe-dev",
-      website: "https://janedoe.com/portfolio",
-    },
-    {
-      id: 5,
-      quote:
-        "Mark's technical support skills are outstanding. He quickly diagnoses issues and provides clear, effective solutions, making him an invaluable asset to any team.",
-      reviewer: "Sarah Wilson",
-      role: "Operations Manager",
-      company: "Global Solutions",
-      imageUrl: "https://randomuser.me/api/portraits/women/5.jpg",
-      rating: 5,
-      github: "https://github.com/janedoe-dev",
-      website: "https://janedoe.com/portfolio",
+      github: "https://github.com/marcuwynu23",
+      website: "https://portfolio.marcuwynu.space",
     },
   ],
 };
