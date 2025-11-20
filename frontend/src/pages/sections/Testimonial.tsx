@@ -9,6 +9,7 @@ import {
   Star,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import LightRays from "../components/LightRays";
 
 interface SectionProps {
   id?: string;
@@ -125,6 +126,24 @@ export const Testimonials = () => {
       id="testimonies"
       className="bg-gray-50 dark:bg-gray-900 relative overflow-visible min-h-[600px] sm:min-h-[700px] md:min-h-[800px] py-12 sm:py-16 md:py-20 lg:py-24"
     >
+      {/* Background */}
+      <div className="absolute inset-0 pointer-events-none z-0 opacity-[0.35]">
+        <LightRays
+          raysOrigin="top-center"
+          raysColor="#ffffff"
+          raysSpeed={1}
+          lightSpread={1}
+          rayLength={6}
+          pulsating={true}
+          fadeDistance={1}
+          saturation={1}
+          followMouse={true}
+          mouseInfluence={0.15}
+          noiseAmount={0.05}
+          distortion={0.1}
+          className="w-full h-full"
+        />
+      </div>
       <SectionTitle subtitle="Kind words from my colleagues">
         Work Testimonials
       </SectionTitle>

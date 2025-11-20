@@ -15,11 +15,11 @@ export const Hero = () => {
 
   return (
     <Section
-      id="home"
+      id="hero"
       className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-12 lg:px-24 overflow-hidden py-12 sm:py-16 md:py-20"
     >
       {/* Background Effects */}
-      <div className="absolute inset-0 z-10 pointer-events-none opacity-70">
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-70">
         <Threads
           color={[0.2, 0.5, 1.0]}
           amplitude={1.2}
@@ -28,7 +28,7 @@ export const Hero = () => {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto w-full relative z-10">
+      <div className="max-w-7xl mx-auto w-full relative z-20">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 sm:gap-12">
           {/* Left Content */}
           <motion.div

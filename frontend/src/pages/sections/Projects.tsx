@@ -3,6 +3,7 @@ import { memo, useEffect, useRef, useState } from "react";
 import { portfolioConfig } from "../../config/portfolio";
 import { Section, SectionTitle } from "../components/Section";
 import { ProjectCard } from "./ProjectCard";
+import LightRays from "../components/LightRays";
 
 export const Projects = memo(() => {
   const { projects } = portfolioConfig;
@@ -60,6 +61,24 @@ export const Projects = memo(() => {
       id="projects"
       className="bg-gray-50 dark:bg-gray-900 overflow-hidden py-12 sm:py-16 md:py-20"
     >
+      {/* Background */}
+      <div className="absolute inset-0 pointer-events-none z-0 opacity-[0.35]">
+        <LightRays
+          raysOrigin="top-center"
+          raysColor="#ffffff"
+          raysSpeed={1}
+          lightSpread={1}
+          rayLength={6}
+          pulsating={true}
+          fadeDistance={1}
+          saturation={1}
+          followMouse={true}
+          mouseInfluence={0.15}
+          noiseAmount={0.05}
+          distortion={0.1}
+          className="w-full h-full"
+        />
+      </div>
       <SectionTitle subtitle="Check out my recent work">
         Featured Projects
       </SectionTitle>

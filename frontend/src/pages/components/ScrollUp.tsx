@@ -15,7 +15,7 @@ export const ScrollToHeroButton = () => {
   }, []);
 
   const scrollToHero = () => {
-    const hero = document.querySelector("#home");
+    const hero = document.querySelector("#hero");
     hero?.scrollIntoView({ behavior: "smooth" });
   };
 

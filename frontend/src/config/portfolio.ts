@@ -141,7 +141,7 @@ export const portfolioConfig = {
       quote:
         "Working with Mark Jaemerl Diestro has been inspiring. As a full stack software developer, his dedication, eagerness to learn, and consistent delivery of good - quality output show how committed he is to becoming better every day - all while staying humble.",
       reviewer: "Mc Vincent Paredes",
-      role: "Senior Software Engineer",
+      role: "UI/UX Designer and Software Developer",
       company: "Quantum Cloud Corporation",
       imageUrl: vincent,
       rating: 5,
@@ -151,9 +151,9 @@ export const portfolioConfig = {
     {
       id: 3,
       quote:
-        "I’ve worked with Mr. Diestro on several projects, and he consistently shows strong technical judgment and practical problem-solving skills. He communicates clearly, follows through, and adds real value to every project. As a full-stack developer, Mark Jaemerl Diestro is dedicated, continually improving, and consistently delivering quality work—all while staying humble. Hardworking, proactive, and an excellent communicator, he keeps growing his skills and making a meaningful impact on the team.",
+        "Hardworking, eager to learn, and an excellent communicator, always showing initiative and a positive attitude. Continuously developing technical skills while making a powerful impact on the team.",
       reviewer: "Mark Wayne Menorca",
-      role: "Masarap Sakalin",
+      role: "Senior Software Engineer",
       company: "Quantum Cloud Corporation",
       imageUrl: mark,
       rating: 5,

@@ -3,7 +3,6 @@ import MJDWhite from "@/assets/images/MJDW.png";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { ThemeToggle } from "./ThemeToggle";
 
 export const Navbar = () => {
   const [theme, setTheme] = useState<"light" | "dark">("light");
@@ -13,7 +12,7 @@ export const Navbar = () => {
 
   // Show navbar only when the Hero section is in view
   useEffect(() => {
-    const heroSection = document.querySelector("#home");
+    const heroSection = document.querySelector("#hero");
     if (!heroSection) return;
 
     const observer = new IntersectionObserver(
@@ -54,7 +53,7 @@ export const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { label: "Home", href: "#home" },
+    // { label: "Home", href: "#hero" },
     { label: "About", href: "#about" },
     { label: "Projects", href: "#projects" },
     { label: "Experience", href: "#experience" },
@@ -103,12 +102,10 @@ export const Navbar = () => {
                 {link.label}
               </motion.button>
             ))}
-            <ThemeToggle />
           </div>
 
           {/* Mobile Nav */}
           <div className="md:hidden flex items-center gap-2">
-            <ThemeToggle />
             <motion.button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               whileTap={{ scale: 0.9 }}
