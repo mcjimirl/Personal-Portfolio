@@ -1,4 +1,4 @@
-import MJD from "@/assets/images/MJD.png";
+import MJD from "@/assets/images/MJDBlack.png";
 import MJDWhite from "@/assets/images/MJDW.png";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
@@ -41,29 +41,55 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Sync theme
+  // Sync theme + respond to system/browser changes
   useEffect(() => {
-    const stored = localStorage.getItem("theme");
-    const currentTheme =
-      stored === "dark" || stored === "light"
-        ? stored
-        : window.matchMedia("(prefers-color-scheme: dark)").matches
+    const root = document.documentElement;
+
+    // Load initial theme
+    const storedTheme = localStorage.getItem("theme");
+    const systemPrefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+
+    const initialTheme =
+      storedTheme === "dark" || storedTheme === "light"
+        ? storedTheme
+        : systemPrefersDark
         ? "dark"
         : "light";
 
-    setTheme(currentTheme);
+    setTheme(initialTheme);
 
-    const observer = new MutationObserver(() => {
-      const root = document.documentElement;
-      setTheme(root.classList.contains("dark") ? "dark" : "light");
+    // Apply it to <html>
+    root.classList.toggle("dark", initialTheme === "dark");
+
+    // Watch for system theme changes
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    const systemThemeListener = (e: MediaQueryListEvent) => {
+      const newTheme = e.matches ? "dark" : "light";
+      setTheme(newTheme);
+      root.classList.toggle("dark", newTheme === "dark");
+      localStorage.setItem("theme", newTheme);
+    };
+    media.addEventListener("change", systemThemeListener);
+
+    // Watch for manual theme toggle (class change)
+    const mutationObserver = new MutationObserver(() => {
+      const isDark = root.classList.contains("dark");
+      const newTheme = isDark ? "dark" : "light";
+      setTheme(newTheme);
+      localStorage.setItem("theme", newTheme);
     });
 
-    observer.observe(document.documentElement, {
+    mutationObserver.observe(root, {
       attributes: true,
       attributeFilter: ["class"],
     });
 
-    return () => observer.disconnect();
+    return () => {
+      media.removeEventListener("change", systemThemeListener);
+      mutationObserver.disconnect();
+    };
   }, []);
 
   const navLinks = [
