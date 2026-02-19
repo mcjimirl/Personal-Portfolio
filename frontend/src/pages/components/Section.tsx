@@ -6,10 +6,6 @@ interface SectionProps {
   className?: string;
 }
 
-/**
- * A balanced section wrapper providing consistent vertical spacing,
- * horizontal padding, and responsive max width alignment.
- */
 export const Section = ({ id, children, className = "" }: SectionProps) => {
   return (
     <section
@@ -26,10 +22,6 @@ interface SectionTitleProps {
   subtitle?: string;
 }
 
-/**
- * A centered title block for sections with an optional subtitle.
- * Designed for consistent spacing and balanced typography.
- */
 export const SectionTitle = ({ children, subtitle }: SectionTitleProps) => {
   return (
     <div className="text-center mb-10 md:mb-15">

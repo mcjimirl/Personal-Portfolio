@@ -48,15 +48,15 @@ export const Navbar = () => {
     // Load initial theme
     const storedTheme = localStorage.getItem("theme");
     const systemPrefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
+      "(prefers-color-scheme: dark)",
     ).matches;
 
     const initialTheme =
       storedTheme === "dark" || storedTheme === "light"
         ? storedTheme
         : systemPrefersDark
-        ? "dark"
-        : "light";
+          ? "dark"
+          : "light";
 
     setTheme(initialTheme);
 
@@ -112,10 +112,17 @@ export const Navbar = () => {
       initial={{ opacity: 0, y: -40 }}
       animate={showNavbar ? { opacity: 1, y: 0 } : { opacity: 0, y: -40 }}
       transition={{ duration: 0.25, ease: "easeOut" }}
-      className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-800"
+      className="fixed top-4 inset-x-0 z-50 flex justify-center"
     >
-      <div className="px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
-        <div className="flex items-center justify-between w-full">
+      <div
+        className="w-[95%] max-w-6xl 
+               bg-white/70 dark:bg-gray-900/70 
+               backdrop-blur-xl 
+               border border-gray-200/50 dark:border-gray-800/50 
+               shadow-lg 
+               rounded-2xl"
+      >
+        <div className="flex items-center justify-between w-full p-4">
           {/* Logo */}
           <motion.button
             onClick={() => scrollToSection("#hero")}
@@ -126,18 +133,20 @@ export const Navbar = () => {
             <img
               src={theme === "light" ? MJD : MJDWhite}
               alt="logo"
-              className="w-16 h-12 sm:w-20 sm:h-15"
+              className="w-14 h-10 sm:w-16 sm:h-12"
             />
           </motion.button>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-4 lg:gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
               <motion.button
                 key={link.label}
                 onClick={() => scrollToSection(link.href)}
                 whileHover={{ y: -2 }}
-                className="text-sm lg:text-base text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                className="text-sm lg:text-base text-gray-700 dark:text-gray-300 
+                       hover:text-blue-600 dark:hover:text-blue-400 
+                       font-medium transition-colors"
               >
                 {link.label}
               </motion.button>
@@ -145,13 +154,13 @@ export const Navbar = () => {
           </div>
 
           {/* Mobile Nav Button */}
-          <div className="md:hidden flex items-center gap-2">
+          <div className="md:hidden flex items-center">
             <motion.button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               whileTap={{ scale: 0.9 }}
               className="p-2 text-gray-800 dark:text-gray-200"
             >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </motion.button>
           </div>
         </div>
@@ -161,14 +170,17 @@ export const Navbar = () => {
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
-            className="md:hidden mt-4 pb-4 space-y-3"
+            className="md:hidden mt-4 space-y-3"
           >
             {navLinks.map((link) => (
               <motion.button
                 key={link.label}
                 onClick={() => scrollToSection(link.href)}
                 whileTap={{ scale: 0.95 }}
-                className="block w-full text-left py-2 px-2 text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                className="block w-full text-left py-2 px-2 text-sm 
+                       text-gray-700 dark:text-gray-300 
+                       hover:text-blue-600 dark:hover:text-blue-400 
+                       font-medium"
               >
                 {link.label}
               </motion.button>
