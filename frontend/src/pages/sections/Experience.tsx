@@ -2,6 +2,7 @@ import { portfolioConfig } from "@/config/portfolio";
 import { motion } from "framer-motion";
 import { Briefcase, CheckCircle, MapPin } from "lucide-react";
 import { useState } from "react";
+import LightRays from "../components/LightRays";
 
 // -------------------- TYPES --------------------
 interface ExperienceItem {
@@ -56,7 +57,25 @@ export const Experience = () => {
   const handleMouseLeave = () => setHoveredJobId(null);
 
   return (
-    <Section id="experience" className="bg-white dark:bg-gray-900">
+    <Section id="experience" className=" relative bg-white dark:bg-gray-900">
+      {/*BACKGROUND EFFECT */}
+      <div className="absolute inset-0 pointer-events-none z-0 opacity-[0.35]">
+        <LightRays
+          raysOrigin="top-center"
+          raysColor="#ffffff"
+          raysSpeed={1}
+          lightSpread={1}
+          rayLength={6}
+          pulsating={true}
+          fadeDistance={1}
+          saturation={1}
+          followMouse={true}
+          mouseInfluence={0.15}
+          noiseAmount={0.05}
+          distortion={0.1}
+          className="w-full h-full"
+        />
+      </div>
       <SectionTitle subtitle="My professional journey">
         Work Experience
       </SectionTitle>

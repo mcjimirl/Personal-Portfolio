@@ -26,7 +26,7 @@ function App() {
     <Router>
       <div className="min-h-screen bg-white dark:bg-gray-900 overflow-hidden">
         <Navbar />
-        <main className="pt-16 sm:pt-20">
+        <main className="">
           <Routes>
             <Route path="/" element={<HomePage />} />
           </Routes>

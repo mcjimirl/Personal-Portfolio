@@ -6,8 +6,48 @@ html {
   scroll-behavior: smooth;
 }
 
-@layer base {
-  * {
-    @apply transition-colors duration-200;
-  }
+@theme {
+  --font-family-serif: "Cambria", "Georgia", serif;
+  --color-primary: #026094;
+  --color-secondary: #a1c9e3;
+  --color-accent: #ffb347;
+  --color-light: #a1c9e3;
+  --color-dark: #012c43;
+  --color-danger: #f56565;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-gray: #e9e9e9;
+  --color-gray2: #939393;
+  --color-green: #2caf0c;
+  --color-red: #a31d1d;
+
+
+  --font-family-heading: "Poppins", sans-serif;
+  --font-family-body: "Poppins", sans-serif;
+
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 4rem;
+  --font-size-7xl: 5rem;
+  --font-size-8xl: 6rem;
+  --font-size-9xl: 7rem;
+
+
+  /* Responsive Breakpoints */
+  --breakpoint-xs: 320px; /* Extra small devices (phones) */
+  --breakpoint-sm: 360px; /* Small devices (phones landscape) */
+  --breakpoint-md: 768px; /* Medium devices (tablets) */
+  --breakpoint-lg: 1024px; /* Large devices (small laptops) */
+  --breakpoint-xl: 1280px; /* Extra large devices (desktops) */
+  --breakpoint-2xl: 1536px; /* 2x large screens (wide desktops) */
 }
+
+

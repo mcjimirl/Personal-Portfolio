@@ -1,9 +1,9 @@
 import { motion, useAnimation, useMotionValue } from "framer-motion";
 import { memo, useEffect, useRef, useState } from "react";
 import { portfolioConfig } from "../../config/portfolio";
+import LightRays from "../components/LightRays";
 import { Section, SectionTitle } from "../components/Section";
 import { ProjectCard } from "./ProjectCard";
-import LightRays from "../components/LightRays";
 
 export const Projects = memo(() => {
   const { projects } = portfolioConfig;
@@ -23,7 +23,7 @@ export const Projects = memo(() => {
         setCarouselWidth(container);
         const calculatedCardWidth = Math.min(
           container * 0.85,
-          window.innerWidth < 640 ? container * 0.9 : 400
+          window.innerWidth < 640 ? container * 0.9 : 400,
         );
         setCardWidth(calculatedCardWidth);
       }
@@ -59,7 +59,7 @@ export const Projects = memo(() => {
   return (
     <Section
       id="projects"
-      className="bg-gray-50 dark:bg-gray-900 overflow-hidden py-12 sm:py-16 md:py-20"
+      className="relative bg-gray-50 dark:bg-gray-900 overflow-hidden py-12 sm:py-16 md:py-20"
     >
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none z-0 opacity-[0.35]">
@@ -94,7 +94,7 @@ export const Projects = memo(() => {
             right: 0,
             left: -Math.max(
               0,
-              projects.length * (cardWidth + 24) - carouselWidth
+              projects.length * (cardWidth + 24) - carouselWidth,
             ),
           }}
           style={{ x }}
