@@ -13,6 +13,7 @@ export const Hero = () => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  //Hero Section with enhanced profile image and background effects
   return (
     <Section
       id="hero"
