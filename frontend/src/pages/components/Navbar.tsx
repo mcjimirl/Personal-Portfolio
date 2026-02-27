@@ -21,14 +21,13 @@ export const Navbar = () => {
       const heroVisible = heroRect.top <= 0 && heroRect.bottom >= 0;
 
       if (heroVisible) {
-        // Always show navbar in Hero section
+        // Always show navbar in hero section
         setShowNavbar(true);
       } else {
-        // Scroll up → show navbar
+        // Outside hero: scroll up → show, scroll down → hide
         if (currentY < lastScrollY) {
           setShowNavbar(true);
         } else {
-          // Scroll down → hide navbar
           setShowNavbar(false);
         }
       }
@@ -37,15 +36,15 @@ export const Navbar = () => {
     };
 
     window.addEventListener("scroll", handleScroll);
+    handleScroll(); // check on mount
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Sync theme + respond to system/browser changes
+  // Theme sync
   useEffect(() => {
     const root = document.documentElement;
 
-    // Load initial theme
     const storedTheme = localStorage.getItem("theme");
     const systemPrefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)",
@@ -59,11 +58,8 @@ export const Navbar = () => {
           : "light";
 
     setTheme(initialTheme);
-
-    // Apply it to <html>
     root.classList.toggle("dark", initialTheme === "dark");
 
-    // Watch for system theme changes
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     const systemThemeListener = (e: MediaQueryListEvent) => {
       const newTheme = e.matches ? "dark" : "light";
@@ -73,7 +69,6 @@ export const Navbar = () => {
     };
     media.addEventListener("change", systemThemeListener);
 
-    // Watch for manual theme toggle (class change)
     const mutationObserver = new MutationObserver(() => {
       const isDark = root.classList.contains("dark");
       const newTheme = isDark ? "dark" : "light";

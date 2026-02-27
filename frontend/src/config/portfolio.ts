@@ -41,7 +41,7 @@ export const portfolioConfig = {
       id: 2,
       title: "To-Do App",
       description:
-        "It's a modern To-Do App that's like a progress report management system that lets the user track their task for efficient progress.",
+        "Modern To-Do App like a progress report management system to track tasks efficiently.",
       image:
         "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=600",
       techStack: ["TypeScript", "React", "Express", "MongoDB", "TailwindCSS"],
@@ -120,7 +120,7 @@ export const portfolioConfig = {
     github: "https://github.com/mcjimirl",
     linkedin: "https://www.linkedin.com/in/mark-jaemerl-diestro-04029b372/",
     facebook: "https://facebook.com/markjaemerldiestro",
-    website: "https://yourwebsite.com",
+    instagram: "https://www.instagram.com/mc.jimirl/",
   },
 
   testimonials: [
