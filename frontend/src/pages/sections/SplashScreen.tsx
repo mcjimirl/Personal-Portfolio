@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import TrueFocus from "../components/TrueFocus";
 
 export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
   const [progress, setProgress] = useState(0);
@@ -41,14 +42,14 @@ export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
           className="mb-8"
         >
           <div className="flex items-center gap-2">
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-              className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full"
+            <TrueFocus
+              sentence="MJD Portfolio"
+              manualMode={false}
+              blurAmount={2.5}
+              borderColor="#5227FF"
+              animationDuration={0.1}
+              pauseBetweenAnimations={1}
             />
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white tracking-tighter">
-              PORT<span className="text-blue-600">FOLIO</span>
-            </h1>
           </div>
         </motion.div>
 
