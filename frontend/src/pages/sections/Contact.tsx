@@ -1,9 +1,10 @@
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
-import { Facebook, Github, Globe, Linkedin, Send } from "lucide-react";
+import { Facebook, Github, Instagram, Linkedin, Send } from "lucide-react";
 import { useRef, useState } from "react";
 import { portfolioConfig } from "../../config/portfolio";
 import { Button } from "../components/Button";
+import LightRays from "../components/LightRays";
 import { Section, SectionTitle } from "../components/Section";
 
 export const Contact = () => {
@@ -16,7 +17,7 @@ export const Contact = () => {
     { icon: Github, url: social.github, label: "GitHub" },
     { icon: Linkedin, url: social.linkedin, label: "LinkedIn" },
     { icon: Facebook, url: social.facebook, label: "Facebook" },
-    { icon: Globe, url: social.website, label: "Website" },
+    { icon: Instagram, url: social.instagram, label: "instagram" },
   ];
 
   const sendEmail = async (e: React.FormEvent) => {
@@ -30,7 +31,7 @@ export const Contact = () => {
         "YOUR_SERVICE_ID",
         "YOUR_TEMPLATE_ID",
         formRef.current,
-        "YOUR_PUBLIC_KEY"
+        "YOUR_PUBLIC_KEY",
       );
 
       setSuccessMsg("Your message has been sent successfully!");
@@ -46,8 +47,26 @@ export const Contact = () => {
   return (
     <Section
       id="contact"
-      className="bg-gray-50 dark:bg-gray-900 py-12 sm:py-16 md:py-20"
+      className="relative bg-gray-50 dark:bg-gray-900 py-12 sm:py-16 md:py-20"
     >
+      {/*BACKGROUND EFFECT */}
+      <div className="absolute inset-0 pointer-events-none z-0 opacity-[0.35]">
+        <LightRays
+          raysOrigin="top-center"
+          raysColor="#ffffff"
+          raysSpeed={1}
+          lightSpread={1}
+          rayLength={6}
+          pulsating={true}
+          fadeDistance={1}
+          saturation={1}
+          followMouse={true}
+          mouseInfluence={0.15}
+          noiseAmount={0.05}
+          distortion={0.1}
+          className="w-full h-full"
+        />
+      </div>
       <SectionTitle subtitle="Let's work together">Get In Touch</SectionTitle>
 
       <div className="max-w-3xl mx-auto">

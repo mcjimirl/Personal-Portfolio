@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { Heart } from "lucide-react";
 import { portfolioConfig } from "../../config/portfolio";
 
 export const Footer = () => {
@@ -15,9 +14,8 @@ export const Footer = () => {
             className="text-center"
           >
             <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 flex items-center gap-2 justify-center mb-2">
-              Built with{" "}
-              <Heart size={14} className="sm:w-4 sm:h-4 text-red-500" fill="currentColor" />{" "}
-              using React, TypeScript & Framer Motion
+              Built with using Mern Stack using React, TypeScript & Framer
+              Motion
             </p>
             <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-500">
               © {new Date().getFullYear()} {portfolioConfig.personal.name}. All

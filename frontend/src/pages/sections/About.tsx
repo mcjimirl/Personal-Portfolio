@@ -31,7 +31,7 @@ export const About = () => {
       </div>
 
       {/* CONTENT ABOVE EFFECT */}
-      <div className="relative z-10">
+      <div className="relative z-10 mt-20">
         <SectionTitle subtitle="Get to know me better">About Me</SectionTitle>
 
         <h3 className="flex justify-center items-center text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
