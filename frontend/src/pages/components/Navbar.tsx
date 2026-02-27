@@ -9,6 +9,7 @@ export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
 
+  // Scroll behavior
   useEffect(() => {
     const heroSection = document.querySelector("#hero");
     if (!heroSection) return;
@@ -18,16 +19,16 @@ export const Navbar = () => {
     const handleScroll = () => {
       const currentY = window.scrollY;
       const heroRect = heroSection.getBoundingClientRect();
-      const heroVisible = heroRect.top <= 0 && heroRect.bottom >= 0;
+      const heroVisible = heroRect.bottom > 0; // visible if bottom > 0
 
       if (heroVisible) {
-        // Always show navbar in hero section
         setShowNavbar(true);
       } else {
-        // Outside hero: scroll up → show, scroll down → hide
         if (currentY < lastScrollY) {
+          // scrolling up
           setShowNavbar(true);
         } else {
+          // scrolling down
           setShowNavbar(false);
         }
       }
@@ -36,7 +37,7 @@ export const Navbar = () => {
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // check on mount
+    handleScroll(); // initial check
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -107,15 +108,15 @@ export const Navbar = () => {
       initial={{ opacity: 0, y: -40 }}
       animate={showNavbar ? { opacity: 1, y: 0 } : { opacity: 0, y: -40 }}
       transition={{ duration: 0.25, ease: "easeOut" }}
-      className="fixed top-4 inset-x-0 z-50 flex justify-center"
+      className="fixed top-4 inset-x-0 z-50 flex justify-center pointer-events-auto"
     >
       <div
         className="w-[95%] max-w-6xl 
-               bg-white/70 dark:bg-gray-900/70 
-               backdrop-blur-xl 
-               border border-gray-200/50 dark:border-gray-800/50 
-               shadow-lg 
-               rounded-2xl"
+                   bg-white/70 dark:bg-gray-900/70 
+                   backdrop-blur-xl 
+                   border border-gray-200/50 dark:border-gray-800/50 
+                   shadow-lg 
+                   rounded-2xl"
       >
         <div className="flex items-center justify-between w-full p-4">
           {/* Logo */}
@@ -140,8 +141,8 @@ export const Navbar = () => {
                 onClick={() => scrollToSection(link.href)}
                 whileHover={{ y: -2 }}
                 className="text-sm lg:text-base text-gray-700 dark:text-gray-300 
-                       hover:text-blue-600 dark:hover:text-blue-400 
-                       font-medium transition-colors"
+                           hover:text-blue-600 dark:hover:text-blue-400 
+                           font-medium transition-colors"
               >
                 {link.label}
               </motion.button>
@@ -173,9 +174,9 @@ export const Navbar = () => {
                 onClick={() => scrollToSection(link.href)}
                 whileTap={{ scale: 0.95 }}
                 className="block w-full text-left py-2 px-2 text-sm 
-                       text-gray-700 dark:text-gray-300 
-                       hover:text-blue-600 dark:hover:text-blue-400 
-                       font-medium"
+                           text-gray-700 dark:text-gray-300 
+                           hover:text-blue-600 dark:hover:text-blue-400 
+                           font-medium"
               >
                 {link.label}
               </motion.button>

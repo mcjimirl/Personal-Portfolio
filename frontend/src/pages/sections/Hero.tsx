@@ -1,6 +1,7 @@
 import profileImage from "@/assets/images/imagenimerl.png";
 import { motion } from "framer-motion";
 import { Download, Mail } from "lucide-react";
+import { useState } from "react";
 import { portfolioConfig } from "../../config/portfolio";
 import { Button } from "../components/Button";
 import { Section } from "../components/Section";
@@ -8,6 +9,10 @@ import Threads from "../components/Threads";
 
 export const Hero = () => {
   const { personal } = portfolioConfig;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   const scrollToContact = () => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
@@ -28,6 +33,39 @@ export const Hero = () => {
         />
       </div>
 
+      {/* Modal for Resume Preview */}
+      {isModalOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+        >
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-2xl w-full max-w-4xl h-[80vh] flex flex-col">
+            {/* Header */}
+            <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-800">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                Resume Preview
+              </h3>
+              <button
+                onClick={closeModal}
+                className="text-gray-600 dark:text-gray-300 font-bold text-xl"
+              >
+                ×
+              </button>
+            </div>
+
+            {/* Iframe Preview */}
+            <iframe
+              src={personal.resumeUrl}
+              className="flex-1 w-full p-4"
+              title="Resume Preview"
+            />
+          </div>
+        </motion.div>
+      )}
+
+      {/* Hero Content */}
       <div className="max-w-7xl mx-auto w-full relative z-20">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 sm:gap-12">
           {/* Left Content */}
@@ -64,14 +102,12 @@ export const Hero = () => {
               transition={{ duration: 0.6, delay: 0.6 }}
               className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center md:justify-start"
             >
-              <Button
-                href={personal.resumeUrl}
-                download
-                className="text-sm sm:text-base"
-              >
-                <Download size={18} className="sm:w-5 sm:h-5" /> Download Resume
+              {/* View Resume Button */}
+              <Button onClick={openModal} className="text-sm sm:text-base">
+                <Download size={18} className="sm:w-5 sm:h-5" /> View Resume
               </Button>
 
+              {/* Contact Button */}
               <Button
                 variant="outline"
                 onClick={scrollToContact}
@@ -125,7 +161,7 @@ export const Hero = () => {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 1, type: "spring", stiffness: 300 }}
-                className="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 p-2 bg-green-500 rounded-full border-4 border-white dark:border-gray-800 shadow-md"
+                className="absolute bottom-2 right-8 sm:bottom-4 sm:right-14 p-2 bg-green-500 rounded-full border-8 border-white dark:border-gray-800 shadow-md"
                 title="Available for contact"
               />
             </motion.div>
