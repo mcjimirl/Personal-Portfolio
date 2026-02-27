@@ -11,7 +11,7 @@ export const Contact = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const [loading, setLoading] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
-  const { social } = portfolioConfig;
+  const { social, personal } = portfolioConfig;
 
   const socialLinks = [
     { icon: Github, url: social.github, label: "GitHub" },
@@ -120,6 +120,14 @@ export const Contact = () => {
               required
               className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg bg-gray-100 dark:bg-gray-300  dark:text-gray-800 focus:ring-2 focus:ring-blue-500 outline-none resize-none"
             ></textarea>
+
+            <p className="gap-1 items-center justify-center flex text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 sm:mb-6">
+              Alternatively, reach me using my email
+              <span className="font-semibold underline text-blue-600 dark:text-blue-400">
+                {" "}
+                {personal.email}
+              </span>
+            </p>
 
             <div className="flex justify-center">
               <Button

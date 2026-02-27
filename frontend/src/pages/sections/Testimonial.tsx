@@ -4,11 +4,11 @@ import {
   ChevronLeft,
   ChevronRight,
   Github,
-  Link,
+  Link2,
   Quote,
   Star,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import LightRays from "../components/LightRays";
 
 interface SectionProps {
@@ -20,29 +20,35 @@ interface SectionProps {
 interface SectionTitleProps {
   subtitle?: string;
   children?: React.ReactNode;
+}
+
+interface StarRatingProps {
   rating?: number;
 }
 
-const StarRating = ({ rating }: SectionTitleProps) => {
+const StarRating = ({ rating }: StarRatingProps) => {
   const numericRating = Number(rating) || 0;
   const maxRating = 5;
-  const stars = [];
-  for (let i = 1; i <= maxRating; i++) {
-    const isFilled = i <= numericRating;
-    stars.push(
-      <Star
-        key={i}
-        size={20}
-        className={
-          isFilled
-            ? "text-yellow-400 fill-yellow-400"
-            : "text-gray-300 dark:text-gray-600"
-        }
-        fill={isFilled ? "currentColor" : "none"}
-      />,
-    );
-  }
-  return <div className="flex space-x-0.5">{stars}</div>;
+
+  return (
+    <div className="flex space-x-0.5">
+      {Array.from({ length: maxRating }).map((_, i) => {
+        const filled = i < numericRating;
+        return (
+          <Star
+            key={i}
+            size={18}
+            className={
+              filled
+                ? "text-yellow-400 fill-yellow-400"
+                : "text-gray-300 dark:text-gray-600"
+            }
+            fill={filled ? "currentColor" : "none"}
+          />
+        );
+      })}
+    </div>
+  );
 };
 
 const Section = ({ id, className, children }: SectionProps) => (
@@ -62,268 +68,244 @@ const SectionTitle = ({ subtitle, children }: SectionTitleProps) => (
   </div>
 );
 
-const DragIndicator = () => (
-  <div className="flex justify-center mt-10">
-    <div className="w-14 h-1.5 rounded-full bg-gray-300 dark:bg-gray-700"></div>
-  </div>
-);
-
 export const Testimonials = () => {
   const { testimonials } = portfolioConfig;
 
-  // Start with the middle card active
   const [activeIndex, setActiveIndex] = useState(
     Math.floor(testimonials.length / 2),
   );
-
   const [progress, setProgress] = useState(0);
+
   const containerRef = useRef<HTMLDivElement>(null);
+  const animationRef = useRef<number>();
+  const startTimeRef = useRef<number>(Date.now());
   const [containerWidth, setContainerWidth] = useState(0);
 
+  const duration = 5000;
+
+  // Measure container width
   useEffect(() => {
-    if (containerRef.current) {
-      const updateWidth = () =>
-        setContainerWidth(containerRef.current!.offsetWidth);
-      updateWidth();
-      window.addEventListener("resize", updateWidth);
-      return () => window.removeEventListener("resize", updateWidth);
-    }
+    const updateWidth = () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.offsetWidth);
+      }
+    };
+
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
   }, []);
 
-  // Auto-slide and progress
-  useEffect(() => {
-    setProgress(0);
+  // Auto slide with accurate timing
+  const startAutoSlide = useCallback(() => {
+    startTimeRef.current = Date.now();
 
-    const slideTimer = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
+    const update = () => {
+      const elapsed = Date.now() - startTimeRef.current;
+      const percentage = Math.min((elapsed / duration) * 100, 100);
 
-    const progressTimer = setInterval(() => {
-      setProgress((p) => (p >= 100 ? 100 : p + 0.5));
-    }, 25);
+      setProgress(percentage);
 
-    return () => {
-      clearInterval(slideTimer);
-      clearInterval(progressTimer);
+      if (elapsed >= duration) {
+        setActiveIndex((prev) => (prev + 1) % testimonials.length);
+        startTimeRef.current = Date.now();
+      }
+
+      animationRef.current = requestAnimationFrame(update);
     };
-  }, [activeIndex, testimonials.length]);
 
-  const handleNext = () =>
+    animationRef.current = requestAnimationFrame(update);
+  }, [testimonials.length]);
+
+  useEffect(() => {
+    startAutoSlide();
+    return () => {
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    };
+  }, [startAutoSlide]);
+
+  const resetProgress = () => {
+    startTimeRef.current = Date.now();
+    setProgress(0);
+  };
+
+  const handleNext = () => {
     setActiveIndex((prev) => (prev + 1) % testimonials.length);
-  const handlePrev = () =>
+    resetProgress();
+  };
+
+  const handlePrev = () => {
     setActiveIndex(
       (prev) => (prev - 1 + testimonials.length) % testimonials.length,
     );
+    resetProgress();
+  };
 
   const getCardWidth = () => {
     if (containerWidth < 640) return containerWidth * 0.9;
     if (containerWidth < 1024) return containerWidth * 0.75;
-    return Math.min(0.8 * containerWidth, 600);
+    return Math.min(containerWidth * 0.8, 600);
   };
+
+  const radius = 45;
+  const circumference = 2 * Math.PI * radius;
+  const dashOffset = circumference - (progress / 100) * circumference;
 
   return (
     <Section
       id="testimonies"
-      className="bg-gray-50 dark:bg-gray-900 relative overflow-visible min-h-[600px] sm:min-h-[700px] md:min-h-[800px] py-12 sm:py-16 md:py-20 lg:py-24"
+      className="bg-gray-50 h-screen dark:bg-gray-900 relative overflow-visible min-h-[700px] py-20"
     >
-      {/* Background */}
       <div className="absolute inset-0 pointer-events-none z-0 opacity-[0.35]">
-        <LightRays
-          raysOrigin="top-center"
-          raysColor="#ffffff"
-          raysSpeed={1}
-          lightSpread={1}
-          rayLength={6}
-          pulsating={true}
-          fadeDistance={1}
-          saturation={1}
-          followMouse={true}
-          mouseInfluence={0.15}
-          noiseAmount={0.05}
-          distortion={0.1}
-          className="w-full h-full"
-        />
+        <LightRays className="w-full h-full" />
       </div>
 
-      <div className="mt-10">
-        <SectionTitle subtitle="Kind words from my colleagues">
-          Work Testimonials
-        </SectionTitle>
+      <SectionTitle subtitle="Kind words from my colleagues">
+        Work Testimonials
+      </SectionTitle>
 
-        <div
-          ref={containerRef}
-          className="relative flex justify-center items-center perspective-[1400px] py-8 sm:py-12 md:py-14 w-full"
+      <div
+        ref={containerRef}
+        className="relative flex justify-center items-center perspective-[1400px] py-14 w-full"
+      >
+        {/* Left Button */}
+        <button
+          onClick={handlePrev}
+          className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 z-40 p-3 rounded-full bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-700 hover:scale-110 active:scale-95 transition"
         >
-          {/* Left Button */}
-          <button
-            onClick={handlePrev}
-            className="absolute left-2 sm:left-4 md:left-10 top-1/2 -translate-y-1/2 z-40 p-2 sm:p-3 rounded-full bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-700 hover:scale-110 active:scale-95 transition"
-          >
-            <ChevronLeft className="w-5 h-5 sm:w-7 sm:h-7 text-blue-600 dark:text-blue-400" />
-          </button>
+          <ChevronLeft className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+        </button>
 
-          {/* Cards */}
-          {testimonials.map((testimonial, index) => {
-            const offset = index - activeIndex;
-            const isActive = offset === 0;
-            const cardWidth = getCardWidth();
-            const x = offset * (cardWidth + 16);
-            const z = isActive ? 0 : -200;
-            const rotateY = offset === 0 ? 0 : offset > 0 ? -15 : 15;
-            const scale = isActive ? 1 : 0.85;
-            const opacity = isActive ? 1 : 0.4;
-            const pointerEvents = isActive ? "auto" : "none";
+        {/* Cards */}
+        {testimonials.map((testimonial, index) => {
+          const total = testimonials.length;
 
-            const radius = 45;
-            const circumference = 2 * Math.PI * radius;
-            const dashOffset = circumference - (progress / 100) * circumference;
+          let offset = index - activeIndex;
+          if (offset > total / 2) offset -= total;
+          if (offset < -total / 2) offset += total;
 
-            return (
-              <motion.div
-                key={testimonial.id}
-                onClick={() => setActiveIndex(index)}
-                layout
-                transition={{ type: "spring", stiffness: 150, damping: 18 }}
-                animate={{
-                  x,
-                  z,
-                  scale,
-                  rotateY,
-                  opacity,
-                  zIndex: isActive ? 30 : 10,
-                }}
-                className="absolute top-0 h-full"
-                style={{
-                  width: cardWidth,
-                  transformStyle: "preserve-3d",
-                  transformOrigin: "center",
-                  pointerEvents,
-                }}
-              >
-                <div className="w-full min-h-[280px] sm:min-h-[300px] bg-white dark:bg-gray-800 border border-blue-200 dark:border-blue-700/50 rounded-2xl sm:rounded-3xl shadow-2xl transition-all duration-300 mt-6 sm:mt-10 flex flex-col justify-between p-4 sm:p-6 md:p-10">
-                  <div className="flex justify-between items-start mb-3 sm:mb-4">
-                    <Quote className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500 dark:text-blue-400 opacity-70" />
-                    {testimonial.rating && (
-                      <StarRating rating={testimonial.rating} />
+          const isActive = offset === 0;
+          const cardWidth = getCardWidth();
+          const spacing = cardWidth + 16;
+
+          return (
+            <motion.div
+              key={testimonial.id}
+              animate={{
+                x: offset * spacing,
+                scale: isActive ? 1 : 0.85,
+                opacity: Math.abs(offset) > 2 ? 0 : isActive ? 1 : 0.4,
+                rotateY: offset === 0 ? 0 : offset > 0 ? -15 : 15,
+                zIndex: total - Math.abs(offset),
+              }}
+              transition={{ type: "spring", stiffness: 150, damping: 18 }}
+              className="absolute top-0"
+              style={{ width: cardWidth }}
+              onClick={() => {
+                setActiveIndex(index);
+                resetProgress();
+              }}
+            >
+              <div className="bg-white dark:bg-gray-800 border border-blue-200 dark:border-blue-700/50 rounded-3xl shadow-2xl p-10 flex flex-col justify-between">
+                <div className="flex justify-between mb-4">
+                  <Quote className="w-8 h-8 text-blue-500 opacity-70" />
+                  <StarRating rating={testimonial.rating} />
+                </div>
+
+                <p className="italic text-lg text-gray-700 dark:text-gray-300 mb-8">
+                  "{testimonial.quote}"
+                </p>
+
+                {/* Reviewer */}
+                <div className="flex items-center gap-4">
+                  <div className="relative w-20 h-20">
+                    {isActive && (
+                      <svg
+                        viewBox="0 0 100 100"
+                        className="absolute w-full h-full -rotate-90"
+                      >
+                        <circle
+                          cx="50"
+                          cy="50"
+                          r={radius}
+                          stroke="#93C5FD"
+                          strokeWidth="5"
+                          fill="none"
+                          opacity={0.3}
+                        />
+                        <circle
+                          cx="50"
+                          cy="50"
+                          r={radius}
+                          stroke="#3B82F6"
+                          strokeWidth="5"
+                          fill="none"
+                          strokeDasharray={circumference}
+                          strokeDashoffset={dashOffset}
+                          strokeLinecap="round"
+                        />
+                      </svg>
                     )}
+
+                    <img
+                      src={testimonial.imageUrl}
+                      alt={testimonial.reviewer}
+                      className="absolute top-1/2 left-1/2 w-16 h-16 rounded-full object-cover border-2 border-blue-400 shadow-md -translate-x-1/2 -translate-y-1/2"
+                    />
                   </div>
 
-                  <div className="flex-grow mb-4 sm:mb-8">
-                    <p className="text-sm sm:text-base md:text-lg italic font-medium text-gray-700 dark:text-gray-300">
-                      "{testimonial.quote}"
+                  <div>
+                    <h3 className="font-bold text-gray-900 dark:text-white">
+                      {testimonial.reviewer}
+                    </h3>
+                    <p className="text-sm text-blue-600 dark:text-blue-400">
+                      {testimonial.role}
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      {testimonial.company}
                     </p>
                   </div>
-
-                  {/* Reviewer with circular loader only if active */}
-                  <div className="pt-3 sm:pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center gap-3 sm:gap-4">
-                    <div className="relative w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0">
-                      {isActive && (
-                        <svg
-                          viewBox="0 0 100 100"
-                          className="absolute top-0 left-0 w-full h-full"
-                          style={{ transform: "rotate(-90deg)" }}
-                        >
-                          <circle
-                            cx="50"
-                            cy="50"
-                            r={radius}
-                            stroke="#93C5FD"
-                            strokeWidth="5"
-                            fill="none"
-                            opacity={0.3}
-                          />
-                          <circle
-                            cx="50"
-                            cy="50"
-                            r={radius}
-                            stroke="#3B82F6"
-                            strokeWidth="5"
-                            fill="none"
-                            strokeDasharray={circumference}
-                            strokeDashoffset={dashOffset}
-                            strokeLinecap="round"
-                            className="transition-all duration-50"
-                          />
-                        </svg>
-                      )}
-
-                      {testimonial.imageUrl && (
-                        <img
-                          src={testimonial.imageUrl}
-                          alt={testimonial.reviewer}
-                          className="absolute top-1/2 left-1/2 w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-blue-400 dark:border-blue-600 shadow-md -translate-x-1/2 -translate-y-1/2"
-                        />
-                      )}
-                    </div>
-
-                    <div>
-                      <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 dark:text-white">
-                        {testimonial.reviewer}
-                      </h3>
-                      <p className="text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400">
-                        {testimonial.role}
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        {testimonial.company}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Links */}
-                  <div className="flex justify-center space-x-2 sm:space-x-4 py-3 sm:py-4 border-y border-gray-100 dark:border-gray-700 my-3 sm:my-4 flex-wrap gap-2">
-                    {testimonial.github && (
-                      <a
-                        href={testimonial.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 text-[10px] sm:text-xs font-medium shadow-sm"
-                      >
-                        <Github size={14} />
-                        GitHub
-                      </a>
-                    )}
-
-                    {testimonial.website && (
-                      <a
-                        href={testimonial.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 bg-blue-500 rounded-full text-white hover:bg-blue-600 text-[10px] sm:text-xs font-medium shadow-sm"
-                      >
-                        <Link size={14} />
-                        Portfolio
-                      </a>
-                    )}
-                  </div>
                 </div>
-              </motion.div>
-            );
-          })}
 
-          <div
-            style={{
-              width: getCardWidth(),
-              height:
-                typeof window !== "undefined" && window.innerWidth < 640
-                  ? 400
-                  : 450,
-            }}
-          />
+                {/* Links */}
+                <div className="flex justify-center gap-3 mt-6 flex-wrap">
+                  {testimonial.github && (
+                    <a
+                      href={testimonial.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 text-xs font-medium shadow-sm"
+                    >
+                      <Github size={14} />
+                      GitHub
+                    </a>
+                  )}
 
-          {/* Right Button */}
-          <button
-            onClick={handleNext}
-            className="absolute right-2 sm:right-4 md:right-10 top-1/2 -translate-y-1/2 z-40 p-2 sm:p-3 rounded-full bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-700 hover:scale-110 active:scale-95 transition"
-          >
-            <ChevronRight className="w-5 h-5 sm:w-7 sm:h-7 text-blue-600 dark:text-blue-400" />
-          </button>
-        </div>
+                  {testimonial.website && (
+                    <a
+                      href={testimonial.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-3 py-1 bg-blue-500 rounded-full text-white hover:bg-blue-600 text-xs font-medium shadow-sm"
+                    >
+                      <Link2 size={14} />
+                      Portfolio
+                    </a>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          );
+        })}
 
-        <DragIndicator />
+        {/* Right Button */}
+        <button
+          onClick={handleNext}
+          className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 z-40 p-3 rounded-full bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-700 hover:scale-110 active:scale-95 transition"
+        >
+          <ChevronRight className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+        </button>
       </div>
-
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-8 sm:w-16 bg-gradient-to-r from-gray-50 dark:from-gray-900 to-transparent z-10"></div>
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-8 sm:w-16 bg-gradient-to-l from-gray-50 dark:from-gray-900 to-transparent z-10"></div>
     </Section>
   );
 };
