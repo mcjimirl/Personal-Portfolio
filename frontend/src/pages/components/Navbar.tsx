@@ -9,52 +9,40 @@ export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
 
-  // Scroll behavior
+  // Scroll direction logic
   useEffect(() => {
-    const heroSection = document.querySelector("#hero");
-    if (!heroSection) return;
-
     let lastScrollY = window.scrollY;
 
     const handleScroll = () => {
       const currentY = window.scrollY;
-      const heroRect = heroSection.getBoundingClientRect();
-      const heroVisible = heroRect.bottom > 0; // visible if bottom > 0
 
-      if (heroVisible) {
+      if (currentY < lastScrollY) {
+        // scrolling up → show navbar
         setShowNavbar(true);
-      } else {
-        if (currentY < lastScrollY) {
-          // scrolling up
-          setShowNavbar(true);
-        } else {
-          // scrolling down
-          setShowNavbar(false);
-        }
+      } else if (currentY > lastScrollY) {
+        // scrolling down → hide navbar
+        setShowNavbar(false);
       }
 
       lastScrollY = currentY;
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // initial check
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Theme sync
+  // Theme sync (unchanged)
   useEffect(() => {
     const root = document.documentElement;
-
     const storedTheme = localStorage.getItem("theme");
-    const systemPrefersDark = window.matchMedia(
+    const prefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)",
     ).matches;
 
     const initialTheme =
       storedTheme === "dark" || storedTheme === "light"
         ? storedTheme
-        : systemPrefersDark
+        : prefersDark
           ? "dark"
           : "light";
 
@@ -62,29 +50,24 @@ export const Navbar = () => {
     root.classList.toggle("dark", initialTheme === "dark");
 
     const media = window.matchMedia("(prefers-color-scheme: dark)");
-    const systemThemeListener = (e: MediaQueryListEvent) => {
+    const listener = (e: MediaQueryListEvent) => {
       const newTheme = e.matches ? "dark" : "light";
       setTheme(newTheme);
       root.classList.toggle("dark", newTheme === "dark");
       localStorage.setItem("theme", newTheme);
     };
-    media.addEventListener("change", systemThemeListener);
+    media.addEventListener("change", listener);
 
-    const mutationObserver = new MutationObserver(() => {
+    const observer = new MutationObserver(() => {
       const isDark = root.classList.contains("dark");
-      const newTheme = isDark ? "dark" : "light";
-      setTheme(newTheme);
-      localStorage.setItem("theme", newTheme);
+      setTheme(isDark ? "dark" : "light");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
     });
-
-    mutationObserver.observe(root, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
+    observer.observe(root, { attributes: true, attributeFilter: ["class"] });
 
     return () => {
-      media.removeEventListener("change", systemThemeListener);
-      mutationObserver.disconnect();
+      media.removeEventListener("change", listener);
+      observer.disconnect();
     };
   }, []);
 
@@ -98,8 +81,7 @@ export const Navbar = () => {
   ];
 
   const scrollToSection = (href: string) => {
-    const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: "smooth" });
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
     setIsMenuOpen(false);
   };
 
@@ -110,14 +92,7 @@ export const Navbar = () => {
       transition={{ duration: 0.25, ease: "easeOut" }}
       className="fixed top-4 inset-x-0 z-50 flex justify-center pointer-events-auto"
     >
-      <div
-        className="w-[95%] max-w-6xl 
-                   bg-white/70 dark:bg-gray-900/70 
-                   backdrop-blur-xl 
-                   border border-gray-200/50 dark:border-gray-800/50 
-                   shadow-lg 
-                   rounded-2xl"
-      >
+      <div className="w-[95%] max-w-6xl bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl border border-gray-200/50 dark:border-gray-800/50 shadow-lg rounded-2xl">
         <div className="flex items-center justify-between w-full p-4">
           {/* Logo */}
           <motion.button
@@ -140,9 +115,7 @@ export const Navbar = () => {
                 key={link.label}
                 onClick={() => scrollToSection(link.href)}
                 whileHover={{ y: -2 }}
-                className="text-sm lg:text-base text-gray-700 dark:text-gray-300 
-                           hover:text-blue-600 dark:hover:text-blue-400 
-                           font-medium transition-colors"
+                className="text-sm lg:text-base text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
               >
                 {link.label}
               </motion.button>
@@ -173,10 +146,7 @@ export const Navbar = () => {
                 key={link.label}
                 onClick={() => scrollToSection(link.href)}
                 whileTap={{ scale: 0.95 }}
-                className="block w-full text-left py-2 px-2 text-sm 
-                           text-gray-700 dark:text-gray-300 
-                           hover:text-blue-600 dark:hover:text-blue-400 
-                           font-medium"
+                className="block w-full text-left py-2 px-2 text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
               >
                 {link.label}
               </motion.button>
