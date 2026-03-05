@@ -171,7 +171,7 @@ export const Testimonials = () => {
         {/* Left Button */}
         <button
           onClick={handlePrev}
-          className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 z-40 p-3 rounded-full bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-700 hover:scale-110 active:scale-95 transition"
+          className="absolute left-4 md:left-10 mt-80 -translate-y-1/2 z-40 p-3 rounded-full hover:border-blue-600 bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-700 hover:scale-110 active:scale-95 transition"
         >
           <ChevronLeft className="w-6 h-6 text-blue-600 dark:text-blue-400" />
         </button>
@@ -301,7 +301,7 @@ export const Testimonials = () => {
         {/* Right Button */}
         <button
           onClick={handleNext}
-          className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 z-40 p-3 rounded-full bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-700 hover:scale-110 active:scale-95 transition"
+          className="absolute right-4 md:right-10 mt-80 -translate-y-1/2 z-40 p-3 rounded-full hover:border-blue-600 bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-700 hover:scale-110 active:scale-95 transition"
         >
           <ChevronRight className="w-6 h-6 text-blue-600 dark:text-blue-400" />
         </button>
