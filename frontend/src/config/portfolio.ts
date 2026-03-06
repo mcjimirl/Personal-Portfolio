@@ -154,7 +154,7 @@ export const portfolioConfig = {
         "Hardworking, eager to learn, and an excellent communicator, always showing initiative and a positive attitude. Continuously developing technical skills while making a powerful impact on the team.",
       reviewer: "Mark Wayne Menorca",
       role: "Senior Software Engineer",
-      company: "Quantum Cloud Corporation",
+      company: "Wayne Enterprise Solution Corp.",
       imageUrl: mark,
       rating: 5,
       github: "https://github.com/marcuwynu23",

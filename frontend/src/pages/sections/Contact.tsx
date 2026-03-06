@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { Facebook, Github, Instagram, Linkedin, Send } from "lucide-react";
 import { useRef, useState } from "react";
-import { sendContactEmail } from "../../api/contact.api";
+// previously used backend API; switched to mailto link so no server is required
+// import { sendContactEmail } from "../../api/contact.api";
 import { portfolioConfig } from "../../config/portfolio";
 import { Button } from "../components/Button";
 import LightRays from "../components/LightRays";
@@ -9,7 +10,8 @@ import { Section, SectionTitle } from "../components/Section";
 
 export const Contact = () => {
   const formRef = useRef<HTMLFormElement>(null);
-  const [loading, setLoading] = useState(false);
+  // no loading indicator needed when using mailto links
+  // const [loading, setLoading] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
   const { social, personal } = portfolioConfig;
 
@@ -20,7 +22,7 @@ export const Contact = () => {
     { icon: Instagram, url: social.instagram, label: "instagram" },
   ];
 
-  const sendEmail = async (e: React.FormEvent) => {
+  const sendEmail = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formRef.current) return;
 
@@ -29,24 +31,23 @@ export const Contact = () => {
     const user_email = formData.get("user_email") as string;
     const message = formData.get("message") as string;
 
-    setLoading(true);
-    setSuccessMsg("");
+    // Build a mailto link so that the visitor's email client is used to send the
+    // message directly to the portfolio owner.  This keeps everything on the
+    // frontend and avoids the need for any backend service.
+    const subject = encodeURIComponent(`Contact from ${user_name}`);
+    const body = encodeURIComponent(
+      `Name: ${user_name}\nEmail: ${user_email}\n\n${message}`,
+    );
+    const mailto = `mailto:${personal.email}?subject=${subject}&body=${body}`;
 
-    try {
-      await sendContactEmail({
-        user_name,
-        user_email,
-        message,
-      });
+    // display guidance and then open the mail client
+    setSuccessMsg(
+      "Your email client should open; send the message to complete.",
+    );
+    window.location.href = mailto;
 
-      setSuccessMsg("Your message has been sent successfully!");
-      formRef.current.reset();
-    } catch (err) {
-      setSuccessMsg("Something went wrong. Please try again.");
-      console.error(err);
-    }
-
-    setLoading(false);
+    // we don't maintain a loading spinner with mailto
+    formRef.current.reset();
   };
 
   return (
@@ -140,12 +141,8 @@ export const Contact = () => {
                 className="text-sm sm:text-lg px-6 sm:px-8 py-3 sm:py-4 flex items-center gap-2"
                 type="submit"
               >
-                {loading ? (
-                  "Sending..."
-                ) : (
-                  <Send size={18} className="sm:w-5 sm:h-5" />
-                )}
-                {!loading && "Send Message"}
+                <Send size={18} className="sm:w-5 sm:h-5" />
+                Send Message
               </Button>
             </div>
 

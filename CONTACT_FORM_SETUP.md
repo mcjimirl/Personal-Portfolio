@@ -1,120 +1,55 @@
-# Contact Form Setup with Resend
+# Contact Form Setup (mailto version)
 
-## Prerequisites
+The contact form no longer relies on a backend service or Resend. Instead it uses a
+`mailto:` link so that visitors send messages directly from their own email client to
+your inbox. This keeps the entire flow in the frontend and removes the need for any
+server at all.
 
-1. **Resend Account**: Create a free account at [resend.com](https://resend.com)
-2. **API Key**: Get your API key from Resend dashboard
-3. **Domain Configuration**: Set up a sender domain in Resend (free plan supports testing emails)
+## How it works
+
+- When the user fills the form and clicks **Send**, the app builds a `mailto:` URL with
+  the subject and body populated from the form fields.
+- The browser opens the visitor's default mail program with the email pre‑filled.
+- The visitor reviews and sends the message; you receive it in your personal email account.
 
 ## Setup Instructions
 
-### Backend Setup
+1. **Make sure your portfolioConfig has your email address.**
+   In `frontend/src/config/portfolio.ts`, update the `personal.email` field to your own
+   address. This is the address that will be used in the `mailto:` link.
 
-1. **Install Dependencies**
+2. **Install frontend dependencies (if you haven't already):**
 
-   ```bash
-   cd backend
-   npm install
-   ```
-
-2. **Configure Environment Variables**
-   - Copy `.env.example` to `.env`
-   - Add your Resend API key:
-     ```
-     RESEND_API_KEY=your_api_key_here
-     ```
-
-3. **Update Email Configuration**
-   - In `src/service/email.service.ts`, update the `from` email address:
-     ```typescript
-     from: "your-domain@your-domain.com", // Use your verified domain in Resend
-     ```
-
-4. **Start the Server**
-
-   ```bash
-   npm run dev    # Development with auto-reload
-   npm start      # Production
-   ```
-
-   The server will run on `http://localhost:5000`
-
-### Frontend Setup
-
-1. **Configure API URL**
-   - Create or update `.env.local` in the frontend directory:
-     ```
-     VITE_API_URL=http://localhost:5000
-     ```
-   - Or update the `API_BASE_URL` in `src/api/contact.api.ts`
-
-2. **Install Dependencies** (if not already done)
    ```bash
    cd frontend
    npm install
    ```
 
-## Domain Verification in Resend
-
-### For Development/Testing
-
-- Resend provides a default email from `onboarding@resend.dev` for testing
-- Update the email service to use this temporarily:
-  ```typescript
-  from: "onboarding@resend.dev",
-  ```
-
-### For Production
-
-1. Go to Resend Dashboard → Domains
-2. Add your domain
-3. Follow DNS verification steps
-4. Use your domain in the email service
-
-## Testing the Contact Form
-
-1. Start the backend:
+3. **Run the development server:**
 
    ```bash
-   cd backend && npm run dev
+   npm run dev
    ```
 
-2. Start the frontend:
+4. **Try the form:**
+   Open http://localhost:5173, fill out the contact form and submit. Your mail client
+   should launch with a draft addressed to your email.
 
-   ```bash
-   cd frontend && npm run dev
-   ```
+## Notes
 
-3. Fill out the contact form on the portfolio website
-4. Verify emails are received at `markjaemerldiestro@gmail.com`
-
-## Features
-
-✅ Contact form with validation
-✅ Email sent to portfolio owner
-✅ Confirmation email sent to user
-✅ Beautiful email templates
-✅ Error handling and user feedback
-✅ Rate limiting (100 requests per 15 minutes)
-✅ Security headers with Helmet
-✅ Request logging with Morgan
+- There is no backend in this configuration; the `backend/` directory has been
+  deprecated and can be removed if you like (it may still exist empty in the repo).
+- Since the email is sent from the visitor's account, they will see the message in
+  their “Sent” folder and the reply address will be their own email.
+- This method avoids API keys, server hosting, and services like Resend. It's simple
+  and reliable for a personal portfolio site.
 
 ## Troubleshooting
 
-### Email not received
-
-- Check your Resend API key is correct
-- Verify domain is configured in Resend
-- Check spam/junk folder
-- Review backend logs for errors
-
-### CORS errors
-
-- Ensure `FRONTEND_URL` is correct in `.env`
-- Check that backend server is running
-
-### 500 Internal Server Error
-
-- Check Resend API key is valid
-- Verify environment variables are set
-- Check server console for error details
+- **Email client doesn't open?**
+  Ensure the user has a default mail application configured in their operating system.
+- **Fields not pre‑populated?**
+  Check that the form inputs have `name` attributes (`user_name`, `user_email`, `message`).
+- **Want a backend again later?**
+  You can always reintroduce a server and use an email API if you need to process
+  submissions automatically.
