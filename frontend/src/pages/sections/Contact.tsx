@@ -1,7 +1,7 @@
-import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 import { Facebook, Github, Instagram, Linkedin, Send } from "lucide-react";
 import { useRef, useState } from "react";
+import { sendContactEmail } from "../../api/contact.api";
 import { portfolioConfig } from "../../config/portfolio";
 import { Button } from "../components/Button";
 import LightRays from "../components/LightRays";
@@ -24,15 +24,20 @@ export const Contact = () => {
     e.preventDefault();
     if (!formRef.current) return;
 
+    const formData = new FormData(formRef.current);
+    const user_name = formData.get("user_name") as string;
+    const user_email = formData.get("user_email") as string;
+    const message = formData.get("message") as string;
+
     setLoading(true);
+    setSuccessMsg("");
 
     try {
-      await emailjs.sendForm(
-        "YOUR_SERVICE_ID",
-        "YOUR_TEMPLATE_ID",
-        formRef.current,
-        "YOUR_PUBLIC_KEY",
-      );
+      await sendContactEmail({
+        user_name,
+        user_email,
+        message,
+      });
 
       setSuccessMsg("Your message has been sent successfully!");
       formRef.current.reset();
